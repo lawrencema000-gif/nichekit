@@ -17,6 +17,7 @@ const PRODUCTS = [
     description: "90 days of ready-to-post content. Every post written, hashtags included, scheduling notes provided. Just customize and post.",
     includes: ["90 unique posts with full copy", "Platform-specific hashtags (3 rotating sets)", "Content type rotation (15 formats)", "Posting schedule with best times", "How-to guide PDF"],
     color: "from-violet-600 to-indigo-600",
+    envKey: "NEXT_PUBLIC_LEMON_CALENDAR",
   },
   {
     id: "email",
@@ -25,6 +26,7 @@ const PRODUCTS = [
     description: "10 professional HTML email templates ready to copy into any email platform. Welcome sequences, promotions, re-engagement, and more.",
     includes: ["10 styled HTML email templates", "Welcome sequence (3 emails)", "Promotional & seasonal templates", "Review request & referral templates", "Newsletter template"],
     color: "from-indigo-600 to-blue-600",
+    envKey: "NEXT_PUBLIC_LEMON_EMAIL",
   },
   {
     id: "documents",
@@ -33,6 +35,7 @@ const PRODUCTS = [
     description: "Professional invoice, proposal, and contract templates customized for your niche. Look polished from day one.",
     includes: ["Invoice template (HTML, print-ready)", "Service proposal template (HTML)", "Client service agreement (PDF)", "All niche-customized", "Easy to edit and brand"],
     color: "from-blue-600 to-cyan-600",
+    envKey: "NEXT_PUBLIC_LEMON_DOCUMENTS",
   },
   {
     id: "seo",
@@ -41,6 +44,7 @@ const PRODUCTS = [
     description: "Keyword research spreadsheet + step-by-step SEO action plan. Start ranking on Google without any technical background.",
     includes: ["10+ researched keywords with intent data", "Competition level analysis", "Content ideas for each keyword", "Google Business Profile checklist", "On-page SEO action plan (PDF)"],
     color: "from-cyan-600 to-teal-600",
+    envKey: "NEXT_PUBLIC_LEMON_SEO",
   },
   {
     id: "acquisition",
@@ -49,6 +53,7 @@ const PRODUCTS = [
     description: "Step-by-step guide to finding and closing new clients. Cold email scripts, objection handlers, referral systems, and follow-up frameworks.",
     includes: ["Cold outreach scripts (email + DM)", "Objection handling scripts", "Referral request templates", "Follow-up framework (Day 1-30)", "Pricing strategy guide"],
     color: "from-teal-600 to-emerald-600",
+    envKey: "NEXT_PUBLIC_LEMON_ACQUISITION",
   },
 ];
 
@@ -172,7 +177,7 @@ export default function HomePage() {
                 <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
                   <span className="text-2xl font-bold text-white">${product.price}</span>
                   <a
-                    href={lemonBase}
+                    href={process.env[product.envKey] || lemonBase}
                     className={`px-5 py-2 bg-gradient-to-r ${product.color} text-white text-sm font-semibold rounded-lg hover:opacity-90 transition`}
                   >
                     Buy Now
@@ -210,7 +215,7 @@ export default function HomePage() {
               </div>
             </div>
             <a
-              href={lemonBase}
+              href={process.env.NEXT_PUBLIC_LEMON_BUNDLE || lemonBase}
               className="inline-block px-10 py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold rounded-lg text-lg hover:opacity-90 transition"
             >
               Get the Complete Bundle — ${BUNDLE_PRICE}
