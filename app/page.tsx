@@ -1,4 +1,5 @@
 import Link from "next/link";
+import EmailCapture from "@/components/EmailCapture";
 
 const NICHES = [
   { key: "dentists", label: "Dental Practices", icon: "🦷", count: "23 templates" },
@@ -13,7 +14,7 @@ const PRODUCTS = [
   {
     id: "calendar",
     name: "90-Day Social Media Calendar",
-    price: 12,
+    price: 19,
     tag: "Most Popular",
     description:
       "90 days of ready-to-post content with full copy, hashtags, CTAs, and scheduling notes. 15 rotating content formats keep your feed fresh.",
@@ -30,7 +31,7 @@ const PRODUCTS = [
   {
     id: "email",
     name: "Email Marketing Swipe File",
-    price: 15,
+    price: 19,
     tag: "10 Templates",
     description:
       "Professional HTML email templates for every stage — welcome sequences, promos, review requests, referrals, and newsletters.",
@@ -64,7 +65,7 @@ const PRODUCTS = [
   {
     id: "seo",
     name: "SEO Starter Toolkit",
-    price: 12,
+    price: 19,
     tag: "Rank Higher",
     description:
       "Keyword research spreadsheet with intent data plus a step-by-step action plan. No technical background needed.",
@@ -81,7 +82,7 @@ const PRODUCTS = [
   {
     id: "acquisition",
     name: "Client Acquisition Playbook",
-    price: 15,
+    price: 19,
     tag: "Get Clients",
     description:
       "Scripts and frameworks for finding, reaching, and closing new clients. Cold emails, objection handlers, referrals, and follow-ups.",
@@ -97,8 +98,8 @@ const PRODUCTS = [
   },
 ];
 
-const BUNDLE_PRICE = 39;
-const BUNDLE_ORIGINAL = 73;
+const BUNDLE_PRICE = 67;
+const BUNDLE_ORIGINAL = 95;
 
 /* ─── Tiny SVG icons ─── */
 function ArrowIcon() {
@@ -260,6 +261,94 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ════════ PREVIEW / SOCIAL PROOF ════════ */}
+      <section className="py-20 px-6" style={{ background: "var(--cream)", borderTop: "1px solid var(--border)" }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="text-sm font-medium tracking-widest uppercase mb-3" style={{ color: "var(--terracotta)" }}>
+              See before you buy
+            </p>
+            <h2 className="text-3xl md:text-4xl mb-3" style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}>
+              Here&rsquo;s what you get
+            </h2>
+            <p className="text-base max-w-md mx-auto" style={{ color: "var(--ink-muted)" }}>
+              Real samples from the Dental Practices kit.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Sample Calendar Posts */}
+            <div className="rounded-2xl overflow-hidden" style={{ background: "var(--warm-white)", border: "1px solid var(--border)" }}>
+              <div className="px-6 py-4" style={{ background: "var(--ink)", color: "var(--sand)" }}>
+                <span className="text-xs font-medium tracking-widest uppercase">From the 90-Day Calendar</span>
+              </div>
+              <div className="p-6 space-y-4">
+                {[
+                  { day: "Day 3", type: "Client Testimonial", text: "\"[Client] came to us for cosmetic dentistry and the results were incredible.\" We love hearing from happy clients! Thank you for trusting us.", platform: "Instagram" },
+                  { day: "Day 7", type: "Myth Buster", text: "Myth: \"Patient no-shows\" is just something you have to live with.\n\nFact: With automated reminders and smart scheduling, you can reduce no-shows by 40%.", platform: "Facebook" },
+                  { day: "Day 12", type: "Behind the Scenes", text: "Here's what a typical day looks like at our dental practice! From general dentistry to making sure every detail is perfect — this is what goes into great results.", platform: "TikTok" },
+                ].map((post, i) => (
+                  <div key={i} className="p-4 rounded-xl" style={{ background: "var(--cream)" }}>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-medium" style={{ color: "var(--terracotta)" }}>{post.day} &middot; {post.type}</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: "var(--sage-light)", color: "var(--sage)" }}>{post.platform}</span>
+                    </div>
+                    <p className="text-sm leading-relaxed whitespace-pre-line" style={{ color: "var(--ink-light)" }}>{post.text}</p>
+                  </div>
+                ))}
+                <p className="text-xs text-center pt-2" style={{ color: "var(--ink-muted)" }}>+ 87 more posts with hashtags, CTAs, and scheduling notes</p>
+              </div>
+            </div>
+
+            {/* Sample Email + SEO Preview */}
+            <div className="space-y-6">
+              {/* Email Preview */}
+              <div className="rounded-2xl overflow-hidden" style={{ background: "var(--warm-white)", border: "1px solid var(--border)" }}>
+                <div className="px-6 py-4" style={{ background: "var(--ink)", color: "var(--sand)" }}>
+                  <span className="text-xs font-medium tracking-widest uppercase">From the Email Swipe File</span>
+                </div>
+                <div className="p-6">
+                  <div className="p-4 rounded-xl" style={{ background: "var(--cream)" }}>
+                    <p className="text-xs mb-1" style={{ color: "var(--ink-muted)" }}>Subject:</p>
+                    <p className="text-sm font-medium mb-3" style={{ color: "var(--ink)" }}>Your smile deserves this (quick read)</p>
+                    <p className="text-xs mb-1" style={{ color: "var(--ink-muted)" }}>Preview:</p>
+                    <p className="text-sm leading-relaxed" style={{ color: "var(--ink-light)" }}>
+                      Hi [First Name], Welcome to [Your Practice Name]! Here&rsquo;s what you can expect: General dentistry tailored to your needs, Cosmetic dentistry using the best techniques, Expert guidance from our experienced team...
+                    </p>
+                  </div>
+                  <p className="text-xs text-center pt-3" style={{ color: "var(--ink-muted)" }}>+ 9 more templates (referrals, promos, newsletters...)</p>
+                </div>
+              </div>
+
+              {/* SEO Keywords Preview */}
+              <div className="rounded-2xl overflow-hidden" style={{ background: "var(--warm-white)", border: "1px solid var(--border)" }}>
+                <div className="px-6 py-4" style={{ background: "var(--ink)", color: "var(--sand)" }}>
+                  <span className="text-xs font-medium tracking-widest uppercase">From the SEO Toolkit</span>
+                </div>
+                <div className="p-6">
+                  <div className="space-y-2">
+                    {[
+                      { kw: "dentist near me", intent: "Local", diff: "High" },
+                      { kw: "teeth whitening cost", intent: "Commercial", diff: "Medium" },
+                      { kw: "how to fix a chipped tooth", intent: "Informational", diff: "Low" },
+                    ].map((k, i) => (
+                      <div key={i} className="flex items-center justify-between p-3 rounded-lg" style={{ background: "var(--cream)" }}>
+                        <span className="text-sm" style={{ color: "var(--ink)" }}>{k.kw}</span>
+                        <div className="flex gap-2">
+                          <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: "var(--sage-light)", color: "var(--sage)" }}>{k.intent}</span>
+                          <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: k.diff === "Low" ? "var(--sage-light)" : k.diff === "Medium" ? "var(--sand)" : "#fde8e8", color: k.diff === "Low" ? "var(--sage)" : k.diff === "Medium" ? "var(--terracotta-dark)" : "#c45d3e" }}>{k.diff}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-xs text-center pt-3" style={{ color: "var(--ink-muted)" }}>+ 7 more keywords with content ideas and priority rankings</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ════════ PRODUCTS ════════ */}
       <section id="products" className="noise-bg py-20 px-6" style={{ background: "var(--cream)" }}>
         <div className="max-w-6xl mx-auto">
@@ -364,7 +453,7 @@ export default function HomePage() {
             Get everything.
           </h2>
           <p className="text-base mb-10" style={{ color: "var(--ink-muted)" }}>
-            All 5 products for one niche of your choice. Save 47%.
+            All 5 products for one niche of your choice. Save 30%.
           </p>
 
           <div
@@ -514,6 +603,19 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ════════ EMAIL CAPTURE ════════ */}
+      <section className="py-16 px-6" style={{ background: "var(--cream)", borderTop: "1px solid var(--border)" }}>
+        <div className="max-w-xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl mb-3" style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}>
+            Not ready to buy?
+          </h2>
+          <p className="text-sm mb-6" style={{ color: "var(--ink-muted)" }}>
+            Get 3 free social media post templates for your niche. No spam, unsubscribe anytime.
+          </p>
+          <EmailCapture />
         </div>
       </section>
 

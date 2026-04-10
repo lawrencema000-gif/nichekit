@@ -7,20 +7,32 @@ export const dynamic = "force-dynamic";
 function verifySignature(rawBody: string, signature: string, secret: string): boolean {
   const hmac = crypto.createHmac("sha256", secret);
   const digest = hmac.update(rawBody).digest("hex");
-  return crypto.timingSafeEqual(Buffer.from(digest), Buffer.from(signature));
+  try {
+    return crypto.timingSafeEqual(Buffer.from(digest), Buffer.from(signature));
+  } catch {
+    return false;
+  }
 }
 
 export async function POST(req: NextRequest) {
   const rawBody = await req.text();
   const signature = req.headers.get("x-signature") || "";
-  const secret = process.env.LEMON_SQUEEZY_WEBHOOK_SECRET || "";
+  const secret = process.env.LEMON_SQUEEZY_WEBHOOK_SECRET;
 
-  if (secret && signature) {
-    const valid = verifySignature(rawBody, signature, secret);
-    if (!valid) {
-      console.error("Invalid LemonSqueezy webhook signature");
-      return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
-    }
+  // Require webhook secret — reject all requests if not configured
+  if (!secret) {
+    console.error("[LemonSqueezy] LEMON_SQUEEZY_WEBHOOK_SECRET not configured");
+    return NextResponse.json({ error: "Webhook not configured" }, { status: 500 });
+  }
+
+  if (!signature) {
+    return NextResponse.json({ error: "Missing signature" }, { status: 401 });
+  }
+
+  const valid = verifySignature(rawBody, signature, secret);
+  if (!valid) {
+    console.error("[LemonSqueezy] Invalid webhook signature");
+    return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
   }
 
   let event;
@@ -45,8 +57,6 @@ export async function POST(req: NextRequest) {
       const orderId = String(data.id);
       const productName = attrs.first_order_item?.product_name || "NicheKit Bundle";
       const variantName = attrs.first_order_item?.variant_name || "";
-
-      // Extract niche from variant name or product name
       const niche = variantName || productName;
 
       if (customerEmail) {
@@ -64,6 +74,7 @@ export async function POST(req: NextRequest) {
           });
           console.log(`[LemonSqueezy] Confirmation email sent to ${customerEmail}`);
         } catch (err) {
+          // Log but don't fail the webhook — LemonSqueezy already delivered files
           console.error("[LemonSqueezy] Failed to send confirmation email:", err);
         }
       }
@@ -81,7 +92,6 @@ export async function POST(req: NextRequest) {
     case "subscription_created":
     case "subscription_updated":
     case "subscription_cancelled": {
-      // Future: if we add subscription products
       console.log(`[LemonSqueezy] Subscription event: ${eventName}`);
       break;
     }
