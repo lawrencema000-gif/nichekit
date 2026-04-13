@@ -1,0 +1,15 @@
+{
+  "title": "From Zero to First Sale in 7 Days",
+  "slug": "zero-to-first-sale",
+  "description": "The fastest path from idea to income. No theory, no fluff — just what works.",
+  "tag": "Beginner",
+  "modules": [
+    { "slug": "01-day-1-pick-and-validate", "title": "Day 1: Pick & Validate Your Product", "free": true },
+    { "slug": "02-day-2-build-store", "title": "Day 2: Build Your Store in 3 Hours", "free": true },
+    { "slug": "03-day-3-product-page", "title": "Day 3: The Perfect Product Page", "free": false },
+    { "slug": "04-day-4-payment-live", "title": "Day 4: Go Live With Payments", "free": false },
+    { "slug": "05-day-5-tell-everyone", "title": "Day 5: Tell Everyone You Know", "free": false },
+    { "slug": "06-day-6-strangers", "title": "Day 6: Sell to Strangers", "free": false },
+    { "slug": "07-day-7-first-sale", "title": "Day 7: Close Your First Sale", "free": false }
+  ]
+}

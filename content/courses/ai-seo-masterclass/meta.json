@@ -1,0 +1,14 @@
+{
+  "title": "AI SEO That Actually Works",
+  "slug": "ai-seo-masterclass",
+  "description": "Rank on Google without an agency. AI-powered keyword research, content creation, and local SEO for Aussie businesses.",
+  "tag": "Mini Course",
+  "modules": [
+    { "slug": "01-seo-basics", "title": "SEO in 10 Minutes (Everything You Need)", "free": false },
+    { "slug": "02-ai-keyword-research", "title": "AI Keyword Research for Australians", "free": false },
+    { "slug": "03-content-that-ranks", "title": "Write Content That Ranks (AI Does 90%)", "free": false },
+    { "slug": "04-local-seo-australia", "title": "Local SEO: Dominate Your Suburb", "free": false },
+    { "slug": "05-google-business", "title": "Google Business Profile Masterclass", "free": false },
+    { "slug": "06-ai-seo-tools", "title": "Get Cited by ChatGPT & Perplexity", "free": false }
+  ]
+}

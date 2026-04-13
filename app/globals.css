@@ -91,3 +91,121 @@ body {
 
 /* Smooth scroll */
 html { scroll-behavior: smooth; }
+
+/* Course content prose */
+.prose-nichekit {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ink-light);
+}
+.prose-nichekit .md-h1 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--ink);
+  margin: 0 0 16px;
+  line-height: 1.2;
+}
+.prose-nichekit .md-h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--ink);
+  margin: 32px 0 12px;
+  line-height: 1.3;
+}
+.prose-nichekit .md-h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 24px 0 8px;
+}
+.prose-nichekit p {
+  margin: 0 0 16px;
+}
+.prose-nichekit .md-li {
+  list-style: none;
+  padding-left: 20px;
+  position: relative;
+  margin-bottom: 6px;
+}
+.prose-nichekit .md-li::before {
+  content: '•';
+  position: absolute;
+  left: 4px;
+  color: var(--terracotta);
+}
+.prose-nichekit .md-li-num {
+  list-style: none;
+  margin-bottom: 6px;
+}
+.prose-nichekit .md-num {
+  font-weight: 600;
+  color: var(--terracotta);
+  margin-right: 6px;
+}
+.prose-nichekit .md-code {
+  font-family: 'DM Mono', monospace;
+  background: var(--cream);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--terracotta-dark);
+}
+.prose-nichekit .md-pre {
+  background: var(--charcoal);
+  color: #e5e7eb;
+  padding: 16px 20px;
+  border-radius: 10px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 16px 0;
+}
+.prose-nichekit .md-pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+.prose-nichekit .md-link {
+  color: var(--terracotta);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-nichekit .md-link:hover {
+  color: var(--terracotta-dark);
+}
+.prose-nichekit .md-td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+.prose-nichekit tr:first-child .md-td {
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--cream);
+}
+.prose-nichekit table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.prose-nichekit .md-check {
+  padding: 4px 0 4px 24px;
+  position: relative;
+  font-size: 14px;
+}
+.prose-nichekit .md-check::before {
+  content: '☐';
+  position: absolute;
+  left: 0;
+}
+.prose-nichekit .md-check.done::before {
+  content: '✓';
+  color: var(--sage);
+}
+.prose-nichekit strong {
+  color: var(--ink);
+  font-weight: 600;
+}

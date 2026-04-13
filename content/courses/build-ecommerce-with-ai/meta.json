@@ -1,0 +1,18 @@
+{
+  "title": "Build Your Own Online Store with AI",
+  "slug": "build-ecommerce-with-ai",
+  "description": "The complete guide to launching a profitable e-commerce store without Shopify — using AI tools, free platforms, and Australian-first strategies.",
+  "tag": "Core Course",
+  "modules": [
+    { "slug": "01-why-not-shopify", "title": "Why Not Shopify (And What to Use Instead)", "free": true },
+    { "slug": "02-pick-your-product", "title": "Pick Your Product in 2 Hours", "free": true },
+    { "slug": "03-your-tech-stack", "title": "Your Tech Stack (Free or Nearly Free)", "free": false },
+    { "slug": "04-ai-builds-your-store", "title": "Let AI Build Your Store", "free": false },
+    { "slug": "05-products-and-pages", "title": "AI-Generated Products & Pages", "free": false },
+    { "slug": "06-payments-shipping-tax", "title": "Payments, Shipping & GST (Australia)", "free": false },
+    { "slug": "07-launch-checklist", "title": "The Launch Checklist", "free": false },
+    { "slug": "08-first-10-customers", "title": "Get Your First 10 Customers", "free": false },
+    { "slug": "09-automate-everything", "title": "Automate Everything", "free": false },
+    { "slug": "10-scale-or-repeat", "title": "Scale This Store or Build Another", "free": false }
+  ]
+}

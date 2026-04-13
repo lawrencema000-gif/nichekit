@@ -1,0 +1,13 @@
+{
+  "title": "Social Media on Autopilot",
+  "slug": "social-media-autopilot",
+  "description": "Set up automated posting across Instagram, TikTok, X, and LinkedIn. AI writes it, tools post it, you sleep.",
+  "tag": "Mini Course",
+  "modules": [
+    { "slug": "01-ai-content-generation", "title": "AI Content Generation at Scale", "free": false },
+    { "slug": "02-scheduling-tools", "title": "Auto-Scheduling Tools That Work", "free": false },
+    { "slug": "03-platform-strategies", "title": "Platform-Specific Strategies", "free": false },
+    { "slug": "04-engagement-automation", "title": "Engagement Without Being Online", "free": false },
+    { "slug": "05-content-repurposing", "title": "One Piece of Content, 5 Platforms", "free": false }
+  ]
+}
