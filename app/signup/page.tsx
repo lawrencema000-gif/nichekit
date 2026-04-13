@@ -31,12 +31,27 @@ export default function SignupPage() {
     }
 
     if (data.user) {
-      await supabase.from("user_profiles").insert({
+      const { error: profileError } = await supabase.from("user_profiles").insert({
         id: data.user.id,
         email,
         full_name: fullName,
         plan: "free",
       });
+
+      if (profileError) {
+        // Profile failed but auth succeeded — retry once
+        const { error: retryError } = await supabase.from("user_profiles").insert({
+          id: data.user.id,
+          email,
+          full_name: fullName,
+          plan: "free",
+        });
+        if (retryError) {
+          setError("Account created but profile setup failed. Please log in and try again, or contact support.");
+          setLoading(false);
+          return;
+        }
+      }
     }
 
     window.location.href = "/dashboard";

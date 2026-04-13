@@ -5,27 +5,56 @@ import { getCourse, getModuleContent } from "@/lib/courses";
 import MarkCompleteButton from "@/components/MarkCompleteButton";
 
 function renderMarkdown(md: string): string {
-  return md
+  // Pre-process: extract code blocks to protect them from other replacements
+  const codeBlocks: string[] = [];
+  let processed = md.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
+    codeBlocks.push(`<pre class="md-pre"><code>${code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>`);
+    return `%%CODEBLOCK_${codeBlocks.length - 1}%%`;
+  });
+
+  processed = processed
+    // Headings
     .replace(/^### (.+)$/gm, '<h3 class="md-h3">$1</h3>')
     .replace(/^## (.+)$/gm, '<h2 class="md-h2">$1</h2>')
     .replace(/^# (.+)$/gm, '<h1 class="md-h1">$1</h1>')
+    // Horizontal rules
+    .replace(/^(-{3,}|\*{3,}|_{3,})$/gm, '<hr class="md-hr" />')
+    // Blockquotes
+    .replace(/^> (.+)$/gm, '<blockquote class="md-blockquote">$1</blockquote>')
+    // Images
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="md-img" loading="lazy" />')
+    // Bold + italic
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
+    // Inline code
     .replace(/`([^`]+)`/g, '<code class="md-code">$1</code>')
-    .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre class="md-pre"><code>$2</code></pre>')
+    // Checklists
     .replace(/^\- \[x\] (.+)$/gm, '<div class="md-check done">✓ $1</div>')
     .replace(/^\- \[ \] (.+)$/gm, '<div class="md-check">☐ $1</div>')
+    // Lists
     .replace(/^\- (.+)$/gm, '<li class="md-li">$1</li>')
     .replace(/^(\d+)\. (.+)$/gm, '<li class="md-li-num"><span class="md-num">$1.</span> $2</li>')
+    // Links
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="md-link" target="_blank" rel="noopener">$1</a>')
-    .replace(/^\|(.+)\|$/gm, (match) => {
-      const cells = match.split("|").filter(Boolean).map((c) => c.trim());
-      if (cells.every((c) => /^[-:]+$/.test(c))) return "";
-      const tag = match.includes("---") ? "th" : "td";
-      return `<tr>${cells.map((c) => `<${tag} class="md-td">${c}</${tag}>`).join("")}</tr>`;
+    // Tables (wrap in <table>)
+    .replace(/(^\|.+\|$\n?)+/gm, (tableBlock) => {
+      const rows = tableBlock.trim().split("\n").map((row) => {
+        const cells = row.split("|").filter(Boolean).map((c) => c.trim());
+        if (cells.every((c) => /^[-:]+$/.test(c))) return "";
+        return `<tr>${cells.map((c) => `<td class="md-td">${c}</td>`).join("")}</tr>`;
+      }).filter(Boolean).join("");
+      return `<table class="md-table">${rows}</table>`;
     })
+    // Paragraphs
     .replace(/\n{2,}/g, "</p><p>")
-    .replace(/^(?!<[hpuoltrd])/gm, "");
+    .replace(/^(?!<[hpuoltrdbi])/gm, "");
+
+  // Restore code blocks
+  codeBlocks.forEach((block, i) => {
+    processed = processed.replace(`%%CODEBLOCK_${i}%%`, block);
+  });
+
+  return processed;
 }
 
 export default async function ModuleReaderPage({

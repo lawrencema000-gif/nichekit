@@ -218,3 +218,30 @@ html { scroll-behavior: smooth; }
   color: var(--ink);
   font-weight: 600;
 }
+.prose-nichekit .md-blockquote {
+  border-left: 4px solid var(--terracotta);
+  padding: 12px 16px;
+  margin: 16px 0;
+  background: var(--cream);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: var(--ink-light);
+}
+.prose-nichekit .md-hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 32px 0;
+}
+.prose-nichekit .md-img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 16px 0;
+}
+.prose-nichekit .md-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}

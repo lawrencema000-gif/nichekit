@@ -121,7 +121,16 @@ export async function POST(req: NextRequest) {
 
         console.log(`[LemonSqueezy] Subscription activated: ${customerEmail} → ${plan}`);
       } else {
-        console.log(`[LemonSqueezy] No user found for ${customerEmail} — subscription orphaned`);
+        // Store orphaned subscription for manual recovery
+        await supabase.from("orders").insert({
+          lemon_order_id: `orphan_sub_${subscriptionId}`,
+          customer_email: customerEmail || "unknown",
+          product_name: `Orphaned subscription: ${productName} (${plan})`,
+          variant_name: variantName,
+          amount_cents: 0,
+          status: "pending",
+        });
+        console.warn(`[LemonSqueezy] ORPHANED: No user for ${customerEmail} — sub ${subscriptionId} stored for recovery`);
       }
 
       break;
@@ -173,6 +182,26 @@ export async function POST(req: NextRequest) {
       }).eq("lemon_subscription_id", subscriptionId);
 
       console.log(`[LemonSqueezy] Subscription expired: ${subscriptionId} → free`);
+      break;
+    }
+
+    case "subscription_paused": {
+      const subscriptionId = String(data?.id);
+      await supabase.from("user_profiles").update({
+        subscription_status: "inactive",
+        updated_at: new Date().toISOString(),
+      }).eq("lemon_subscription_id", subscriptionId);
+      console.log(`[LemonSqueezy] Subscription paused: ${subscriptionId}`);
+      break;
+    }
+
+    case "subscription_resumed": {
+      const subscriptionId = String(data?.id);
+      await supabase.from("user_profiles").update({
+        subscription_status: "active",
+        updated_at: new Date().toISOString(),
+      }).eq("lemon_subscription_id", subscriptionId);
+      console.log(`[LemonSqueezy] Subscription resumed: ${subscriptionId}`);
       break;
     }
 
