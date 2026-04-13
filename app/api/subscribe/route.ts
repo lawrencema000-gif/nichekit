@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createAdminClient } from "@/lib/supabase-admin";
 
 export async function POST(req: NextRequest) {
   try {
@@ -8,10 +9,17 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid email" }, { status: 400 });
     }
 
-    // Log the subscriber (in production, add to Resend audience or database)
+    const supabase = createAdminClient();
+
+    // Store subscriber in database
+    await supabase.from("subscribers").upsert(
+      { email, source: "website", subscribed: true },
+      { onConflict: "email" }
+    );
+
     console.log(`[Subscribe] New subscriber: ${email}`);
 
-    // If Resend audience ID is configured, add contact
+    // Also add to Resend audience if configured
     const audienceId = process.env.RESEND_AUDIENCE_ID;
     const apiKey = process.env.RESEND_API_KEY;
 
@@ -23,7 +31,7 @@ export async function POST(req: NextRequest) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, unsubscribed: false }),
-      });
+      }).catch(() => {}); // Non-critical, don't fail the request
     }
 
     return NextResponse.json({ success: true });

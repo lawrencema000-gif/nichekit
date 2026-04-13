@@ -10,6 +10,8 @@
     "generate": "tsx scripts/generate-products.ts"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.10.2",
+    "@supabase/supabase-js": "^2.103.0",
     "archiver": "^7.0.1",
     "next": "16.2.1",
     "pdfkit": "^0.18.0",
