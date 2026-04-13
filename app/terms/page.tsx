@@ -15,7 +15,7 @@ export default function TermsPage() {
           </section>
           <section>
             <h2 className="text-lg font-medium mb-2" style={{ color: "var(--ink)" }}>2. Payments</h2>
-            <p>All payments are processed securely through LemonSqueezy. Prices are in USD. All sales are one-time purchases with no recurring charges.</p>
+            <p>All payments are processed securely through LemonSqueezy. Prices are in AUD (Australian Dollars). We offer both subscription plans and one-time purchases. Subscriptions can be cancelled at any time from your billing dashboard.</p>
           </section>
           <section>
             <h2 className="text-lg font-medium mb-2" style={{ color: "var(--ink)" }}>3. Refund Policy</h2>
@@ -23,7 +23,7 @@ export default function TermsPage() {
           </section>
           <section>
             <h2 className="text-lg font-medium mb-2" style={{ color: "var(--ink)" }}>4. Disclaimer</h2>
-            <p>Templates are provided &ldquo;as-is&rdquo; for informational purposes. NicheKit is not responsible for business outcomes resulting from the use of these templates. Legal document templates (contracts, agreements) are not a substitute for legal advice.</p>
+            <p>Courses and templates are provided &ldquo;as-is&rdquo; for educational purposes. NicheKit is not responsible for business outcomes resulting from the use of our content. Legal document templates (contracts, agreements) are not a substitute for professional legal advice. Income results vary and are not guaranteed.</p>
           </section>
           <section>
             <h2 className="text-lg font-medium mb-2" style={{ color: "var(--ink)" }}>5. Contact</h2>

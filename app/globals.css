@@ -89,6 +89,15 @@ body {
   box-shadow: 0 20px 60px -12px rgba(0,0,0,0.12);
 }
 
+/* Focus states (accessibility) */
+input:focus, button:focus-visible, a:focus-visible, select:focus {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 2px;
+}
+input:focus:not(:focus-visible) {
+  outline: none;
+}
+
 /* Smooth scroll */
 html { scroll-behavior: smooth; }
 

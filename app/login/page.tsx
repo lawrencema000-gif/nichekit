@@ -45,26 +45,29 @@ export default function LoginPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg text-sm outline-none transition"
+              className="w-full px-4 py-3 rounded-lg text-sm transition"
               style={{ background: "var(--warm-white)", border: "1.5px solid var(--border)", color: "var(--ink)" }}
               placeholder="you@business.com"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--ink-light)" }}>Password</label>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-sm font-medium" style={{ color: "var(--ink-light)" }}>Password</label>
+              <Link href="/forgot-password" className="text-xs" style={{ color: "var(--terracotta)" }}>Forgot password?</Link>
+            </div>
             <input
               type="password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg text-sm outline-none transition"
+              className="w-full px-4 py-3 rounded-lg text-sm transition"
               style={{ background: "var(--warm-white)", border: "1.5px solid var(--border)", color: "var(--ink)" }}
               placeholder="Your password"
             />
           </div>
 
           {error && (
-            <p className="text-sm p-3 rounded-lg" style={{ background: "#fde8e8", color: "var(--terracotta)" }}>{error}</p>
+            <p className="text-sm p-3 rounded-lg" style={{ background: "var(--sand)", color: "var(--terracotta)" }}>{error}</p>
           )}
 
           <button

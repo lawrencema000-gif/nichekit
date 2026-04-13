@@ -58,7 +58,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
         </p>
 
         {/* Progress bar */}
-        {hasAccess && completedCount > 0 && (
+        {hasAccess && (
           <div className="flex items-center gap-3">
             <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: "var(--sand)" }}>
               <div

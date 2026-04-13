@@ -1,13 +1,14 @@
 import { createClient } from "@/lib/supabase-server";
 import Link from "next/link";
+import DownloadButton from "@/components/DownloadButton";
 
 const TEMPLATE_PACKS = [
-  { niche: "Dental Practices", icon: "🦷", files: 23 },
-  { niche: "Restaurants", icon: "🍴", files: 23 },
-  { niche: "Real Estate", icon: "🏡", files: 23 },
-  { niche: "Gyms & Fitness", icon: "🏋️", files: 23 },
-  { niche: "Salons & Spas", icon: "✂️", files: 23 },
-  { niche: "E-Commerce", icon: "🛍️", files: 23 },
+  { niche: "Dental Practices", key: "dentists", icon: "🦷", files: 23 },
+  { niche: "Restaurants", key: "restaurants", icon: "🍴", files: 23 },
+  { niche: "Real Estate", key: "real-estate", icon: "🏡", files: 23 },
+  { niche: "Gyms & Fitness", key: "gyms", icon: "🏋️", files: 23 },
+  { niche: "Salons & Spas", key: "salons", icon: "✂️", files: 23 },
+  { niche: "E-Commerce", key: "ecommerce", icon: "🛍️", files: 23 },
 ];
 
 const PRODUCTS_IN_PACK = [
@@ -67,12 +68,7 @@ export default async function TemplatesPage() {
             </ul>
 
             {hasAccess ? (
-              <button
-                className="w-full py-2.5 rounded-full text-sm font-medium transition hover:opacity-90"
-                style={{ background: "var(--ink)", color: "var(--warm-white)" }}
-              >
-                Download ZIP
-              </button>
+              <DownloadButton niche={pack.key} />
             ) : (
               <Link
                 href="/pricing"
