@@ -1,107 +1,77 @@
 import Link from "next/link";
 import EmailCapture from "@/components/EmailCapture";
 
-const NICHES = [
-  { key: "dentists", label: "Dental Practices", icon: "🦷", count: "23 templates" },
-  { key: "restaurants", label: "Restaurants", icon: "🍴", count: "23 templates" },
-  { key: "real-estate", label: "Real Estate", icon: "🏡", count: "23 templates" },
-  { key: "gyms", label: "Gyms & Fitness", icon: "🏋️", count: "23 templates" },
-  { key: "salons", label: "Salons & Spas", icon: "✂️", count: "23 templates" },
-  { key: "ecommerce", label: "E-Commerce", icon: "🛍️", count: "23 templates" },
-];
-
-const PRODUCTS = [
+const COURSES = [
   {
-    id: "calendar",
-    name: "90-Day Social Media Calendar",
-    price: 19,
-    tag: "Most Popular",
-    description:
-      "90 days of ready-to-post content with full copy, hashtags, CTAs, and scheduling notes. 15 rotating content formats keep your feed fresh.",
-    includes: [
-      "90 unique posts with full copy",
-      "3 rotating hashtag sets",
-      "15 content formats",
-      "Best posting times guide",
-      "How-to PDF guide",
-    ],
-    envKey: "NEXT_PUBLIC_LEMON_CALENDAR",
-    accent: "var(--terracotta)",
+    title: "Build Your Own Online Store with AI",
+    tag: "Core Course",
+    modules: "10 modules",
+    description: "The complete, no-BS guide to launching a profitable e-commerce store — without Shopify, without agencies, without blowing $5K on a developer. Just AI tools, free platforms, and scrappy Australian hustle.",
+    topics: ["Next.js + Vercel (free hosting)", "Stripe & LemonSqueezy payments", "AI-generated product pages", "ABN, GST & Australian compliance", "Launch to first sale in 14 days"],
   },
   {
-    id: "email",
-    name: "Email Marketing Swipe File",
-    price: 19,
-    tag: "10 Templates",
-    description:
-      "Professional HTML email templates for every stage — welcome sequences, promos, review requests, referrals, and newsletters.",
-    includes: [
-      "10 styled HTML emails",
-      "Welcome sequence (3 emails)",
-      "Promotional templates",
-      "Referral & review requests",
-      "Newsletter template",
-    ],
-    envKey: "NEXT_PUBLIC_LEMON_EMAIL",
-    accent: "var(--sage)",
+    title: "AI SEO That Actually Works",
+    tag: "Mini Course",
+    modules: "6 modules",
+    description: "Rank on Google without an agency. Unconventional SEO tactics using AI — keyword research, content generation, and local SEO for Australian cities and suburbs.",
+    topics: ["AI keyword research", "Content that ranks (not just reads)", "Google Business Profile domination", "Local SEO for Aussie suburbs", "Get cited by ChatGPT & Perplexity"],
   },
   {
-    id: "documents",
-    name: "Business Document Kit",
-    price: 19,
-    tag: "Essentials",
-    description:
-      "Invoice, proposal, and contract templates that make your business look established from day one. Print-ready and easy to customize.",
-    includes: [
-      "Invoice template (HTML)",
-      "Service proposal template",
-      "Client service agreement (PDF)",
-      "All niche-customized",
-      "Easy to brand",
-    ],
-    envKey: "NEXT_PUBLIC_LEMON_DOCUMENTS",
-    accent: "var(--charcoal)",
+    title: "From Zero to First Sale in 7 Days",
+    tag: "Beginner",
+    modules: "7 modules",
+    description: "No theory. No fluff. Just the fastest path from idea to income. Built for people who are tired of courses that teach everything except how to actually make money.",
+    topics: ["Pick a product in 2 hours", "Build a store in 1 day", "Get traffic without ads", "Close your first sale", "What to do after the first $100"],
   },
   {
-    id: "seo",
-    name: "SEO Starter Toolkit",
-    price: 19,
-    tag: "Rank Higher",
-    description:
-      "Keyword research spreadsheet with intent data plus a step-by-step action plan. No technical background needed.",
-    includes: [
-      "10+ researched keywords",
-      "Competition analysis",
-      "Content ideas per keyword",
-      "Google Business checklist",
-      "SEO action plan (PDF)",
-    ],
-    envKey: "NEXT_PUBLIC_LEMON_SEO",
-    accent: "var(--terracotta-dark)",
+    title: "Email Marketing Machine",
+    tag: "Mini Course",
+    modules: "5 modules",
+    description: "Build an email list and write sequences that convert — using AI to do 90% of the work. Stop paying Mailchimp $50/mo for something you can automate for free.",
+    topics: ["Free email tools that scale", "AI-written welcome sequences", "Abandoned cart recovery", "Monthly newsletter autopilot", "List building without popups"],
   },
   {
-    id: "acquisition",
-    name: "Client Acquisition Playbook",
-    price: 19,
-    tag: "Get Clients",
-    description:
-      "Scripts and frameworks for finding, reaching, and closing new clients. Cold emails, objection handlers, referrals, and follow-ups.",
-    includes: [
-      "Cold outreach scripts",
-      "Objection handling scripts",
-      "Referral templates",
-      "30-day follow-up framework",
-      "Pricing strategy guide",
-    ],
-    envKey: "NEXT_PUBLIC_LEMON_ACQUISITION",
-    accent: "var(--sage)",
+    title: "Social Media on Autopilot",
+    tag: "Mini Course",
+    modules: "5 modules",
+    description: "Set up automated posting across Instagram, TikTok, X, and LinkedIn. AI writes it, tools schedule it, you get on with your life.",
+    topics: ["AI content generation", "Auto-scheduling tools", "Platform-specific strategies", "Engagement without being online", "Content repurposing system"],
   },
 ];
 
-const BUNDLE_PRICE = 67;
-const BUNDLE_ORIGINAL = 95;
+const PLANS = [
+  {
+    name: "Free",
+    price: "$0",
+    period: "",
+    description: "See if it's for you.",
+    features: ["Module 1 of core course", "3 sample templates", "Weekly email tips"],
+    cta: "Start free",
+    href: "/signup",
+    highlight: false,
+  },
+  {
+    name: "Starter",
+    price: "$29",
+    period: "/mo",
+    description: "Full access to everything.",
+    features: ["All courses (5 courses, 33 modules)", "All template packs (6 niches)", "Monthly new content", "Community access", "Future courses included"],
+    cta: "Start learning",
+    href: "/signup",
+    highlight: true,
+  },
+  {
+    name: "Pro",
+    price: "$79",
+    period: "/mo",
+    description: "Courses + monthly 1-on-1 calls.",
+    features: ["Everything in Starter", "Monthly 30-min consultation", "Store review & feedback", "Priority support (24hr)", "Custom AI prompts library"],
+    cta: "Go Pro",
+    href: "/signup",
+    highlight: false,
+  },
+];
 
-/* ─── Tiny SVG icons ─── */
 function ArrowIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="inline-block ml-1">
@@ -119,8 +89,6 @@ function CheckMark() {
 }
 
 export default function HomePage() {
-  const lemonBase = process.env.NEXT_PUBLIC_LEMON_STORE_URL || "#";
-
   return (
     <div style={{ fontFamily: "var(--font-body)" }}>
       {/* ════════ NAV ════════ */}
@@ -129,21 +97,21 @@ export default function HomePage() {
         style={{ background: "rgba(253,251,247,0.85)", borderBottom: "1px solid var(--border)" }}
       >
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <span className="text-lg tracking-tight" style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}>
+          <Link href="/" className="text-lg tracking-tight" style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}>
             NicheKit
-          </span>
+          </Link>
           <div className="hidden sm:flex items-center gap-8 text-sm" style={{ color: "var(--ink-light)" }}>
-            <a href="#products" className="hover:text-[var(--ink)] transition">Products</a>
-            <a href="#niches" className="hover:text-[var(--ink)] transition">Niches</a>
-            <a href="#bundle" className="hover:text-[var(--ink)] transition">Bundle</a>
+            <a href="#courses" className="hover:text-[var(--ink)] transition">Courses</a>
+            <a href="#pricing" className="hover:text-[var(--ink)] transition">Pricing</a>
+            <Link href="/login" className="hover:text-[var(--ink)] transition">Log in</Link>
           </div>
-          <a
-            href="#bundle"
+          <Link
+            href="/signup"
             className="text-sm font-medium px-5 py-2 rounded-full transition hover:opacity-90"
             style={{ background: "var(--ink)", color: "var(--warm-white)" }}
           >
-            Get the Bundle
-          </a>
+            Start free
+          </Link>
         </div>
       </nav>
 
@@ -155,281 +123,158 @@ export default function HomePage() {
               className="text-sm font-medium tracking-widest uppercase mb-6 animate-fade-up"
               style={{ color: "var(--terracotta)" }}
             >
-              Templates for small businesses
+              For Australians who want to sell online
             </p>
             <h1
               className="text-4xl sm:text-5xl md:text-6xl leading-[1.1] mb-6 animate-fade-up delay-1"
               style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}
             >
-              The marketing toolkit
+              Build your own
               <br />
-              you wish you had
+              e-commerce store.
               <br />
-              <span style={{ color: "var(--terracotta)" }}>on day one.</span>
+              <span style={{ color: "var(--terracotta)" }}>No Shopify. Just AI.</span>
             </h1>
             <p
               className="text-lg md:text-xl leading-relaxed mb-10 max-w-xl animate-fade-up delay-2"
               style={{ color: "var(--ink-light)" }}
             >
-              90 days of social content. Email sequences. SEO playbooks.
-              Client acquisition scripts. All written for your niche —
-              ready to customize and launch today.
+              Unconventional, effective courses that teach you to build, launch,
+              and market an online store using AI tools — for a fraction of what
+              agencies charge. Built for the Australian market.
             </p>
             <div className="flex flex-wrap items-center gap-4 animate-fade-up delay-3">
-              <a
-                href="#bundle"
+              <Link
+                href="/signup"
                 className="inline-flex items-center px-7 py-3.5 rounded-full text-base font-medium transition hover:opacity-90"
                 style={{ background: "var(--terracotta)", color: "white" }}
               >
-                Everything for ${BUNDLE_PRICE}
+                Start learning free
                 <ArrowIcon />
-              </a>
+              </Link>
               <a
-                href="#products"
+                href="#courses"
                 className="inline-flex items-center px-7 py-3.5 rounded-full text-base font-medium transition hover:opacity-90"
                 style={{ border: "1.5px solid var(--border)", color: "var(--ink-light)" }}
               >
-                Browse products
+                See what&rsquo;s inside
               </a>
             </div>
             <p className="text-xs mt-5 animate-fade-up delay-4" style={{ color: "var(--ink-muted)" }}>
-              One-time purchase &middot; Instant download &middot; No subscription
+              Free tier available &middot; No credit card required &middot; Cancel anytime
             </p>
           </div>
         </div>
       </section>
 
-      {/* ════════ MARQUEE TRUST BAR ════════ */}
-      <div
-        className="overflow-hidden py-4"
-        style={{ background: "var(--ink)", color: "var(--sand)" }}
-      >
+      {/* ════════ MARQUEE ════════ */}
+      <div className="overflow-hidden py-4" style={{ background: "var(--ink)", color: "var(--sand)" }}>
         <div className="animate-marquee whitespace-nowrap flex gap-12 text-sm tracking-wide">
           {[...Array(2)].map((_, i) => (
             <span key={i} className="flex gap-12 items-center">
-              <span>6 Niches</span>
+              <span>5 Courses</span>
               <span style={{ color: "var(--terracotta-light)" }}>&bull;</span>
-              <span>30+ Templates</span>
+              <span>33 Modules</span>
               <span style={{ color: "var(--terracotta-light)" }}>&bull;</span>
-              <span>90 Days of Content</span>
+              <span>Australian-First</span>
               <span style={{ color: "var(--terracotta-light)" }}>&bull;</span>
-              <span>Instant Download</span>
+              <span>AI-Powered</span>
               <span style={{ color: "var(--terracotta-light)" }}>&bull;</span>
-              <span>30-Day Guarantee</span>
+              <span>No Shopify</span>
               <span style={{ color: "var(--terracotta-light)" }}>&bull;</span>
-              <span>Use Forever</span>
+              <span>1-on-1 Calls Available</span>
+              <span style={{ color: "var(--terracotta-light)" }}>&bull;</span>
+              <span>Templates Included</span>
               <span style={{ color: "var(--terracotta-light)" }}>&bull;</span>
             </span>
           ))}
         </div>
       </div>
 
-      {/* ════════ NICHES ════════ */}
-      <section id="niches" className="py-20 px-6" style={{ background: "var(--warm-white)" }}>
-        <div className="max-w-6xl mx-auto">
+      {/* ════════ WHY DIFFERENT ════════ */}
+      <section className="py-20 px-6" style={{ background: "var(--warm-white)" }}>
+        <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
             <p className="text-sm font-medium tracking-widest uppercase mb-3" style={{ color: "var(--terracotta)" }}>
-              Pick your industry
+              Not another generic course
             </p>
-            <h2
-              className="text-3xl md:text-4xl mb-3"
-              style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}
-            >
-              Built for your niche
+            <h2 className="text-3xl md:text-4xl mb-3" style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}>
+              What makes this different
             </h2>
-            <p className="text-base max-w-md mx-auto" style={{ color: "var(--ink-muted)" }}>
-              Every template is written with real industry terminology, pain points, and strategies.
-            </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {NICHES.map((n, i) => (
-              <div
-                key={n.key}
-                className={`hover-lift rounded-2xl p-6 text-center cursor-default animate-fade-up delay-${(i % 6) + 1}`}
-                style={{ background: "var(--cream)", border: "1px solid var(--border)" }}
-              >
-                <span className="text-3xl block mb-3">{n.icon}</span>
-                <span className="font-medium block" style={{ color: "var(--ink)", fontFamily: "var(--font-display)", fontSize: "1.1rem" }}>
-                  {n.label}
-                </span>
-                <span className="text-xs block mt-1" style={{ color: "var(--ink-muted)" }}>
-                  {n.count}
-                </span>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Australian-first",
+                desc: "ABN setup, GST handling, AUD pricing, Aussie payment processors, local shipping, Australian consumer law. Not American advice repackaged.",
+              },
+              {
+                title: "AI does the heavy lifting",
+                desc: "Product descriptions, SEO content, email sequences, social posts — AI generates 90% of it. You edit and publish. Save hundreds of hours.",
+              },
+              {
+                title: "Effective, not conventional",
+                desc: "No \"follow these 47 steps\" theory. Scrappy tactics that actually work — guerrilla marketing, AI shortcuts, and strategies the gurus don't teach.",
+              },
+            ].map((item) => (
+              <div key={item.title} className="p-6 rounded-2xl" style={{ background: "var(--cream)", border: "1px solid var(--border)" }}>
+                <h3 className="text-base font-medium mb-2" style={{ color: "var(--ink)" }}>{item.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: "var(--ink-light)" }}>{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ════════ PREVIEW / SOCIAL PROOF ════════ */}
-      <section className="py-20 px-6" style={{ background: "var(--cream)", borderTop: "1px solid var(--border)" }}>
+      {/* ════════ COURSES ════════ */}
+      <section id="courses" className="noise-bg py-20 px-6" style={{ background: "var(--cream)" }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
             <p className="text-sm font-medium tracking-widest uppercase mb-3" style={{ color: "var(--terracotta)" }}>
-              See before you buy
+              The curriculum
             </p>
             <h2 className="text-3xl md:text-4xl mb-3" style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}>
-              Here&rsquo;s what you get
-            </h2>
-            <p className="text-base max-w-md mx-auto" style={{ color: "var(--ink-muted)" }}>
-              Real samples from the Dental Practices kit.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Sample Calendar Posts */}
-            <div className="rounded-2xl overflow-hidden" style={{ background: "var(--warm-white)", border: "1px solid var(--border)" }}>
-              <div className="px-6 py-4" style={{ background: "var(--ink)", color: "var(--sand)" }}>
-                <span className="text-xs font-medium tracking-widest uppercase">From the 90-Day Calendar</span>
-              </div>
-              <div className="p-6 space-y-4">
-                {[
-                  { day: "Day 3", type: "Client Testimonial", text: "\"[Client] came to us for cosmetic dentistry and the results were incredible.\" We love hearing from happy clients! Thank you for trusting us.", platform: "Instagram" },
-                  { day: "Day 7", type: "Myth Buster", text: "Myth: \"Patient no-shows\" is just something you have to live with.\n\nFact: With automated reminders and smart scheduling, you can reduce no-shows by 40%.", platform: "Facebook" },
-                  { day: "Day 12", type: "Behind the Scenes", text: "Here's what a typical day looks like at our dental practice! From general dentistry to making sure every detail is perfect — this is what goes into great results.", platform: "TikTok" },
-                ].map((post, i) => (
-                  <div key={i} className="p-4 rounded-xl" style={{ background: "var(--cream)" }}>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-medium" style={{ color: "var(--terracotta)" }}>{post.day} &middot; {post.type}</span>
-                      <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: "var(--sage-light)", color: "var(--sage)" }}>{post.platform}</span>
-                    </div>
-                    <p className="text-sm leading-relaxed whitespace-pre-line" style={{ color: "var(--ink-light)" }}>{post.text}</p>
-                  </div>
-                ))}
-                <p className="text-xs text-center pt-2" style={{ color: "var(--ink-muted)" }}>+ 87 more posts with hashtags, CTAs, and scheduling notes</p>
-              </div>
-            </div>
-
-            {/* Sample Email + SEO Preview */}
-            <div className="space-y-6">
-              {/* Email Preview */}
-              <div className="rounded-2xl overflow-hidden" style={{ background: "var(--warm-white)", border: "1px solid var(--border)" }}>
-                <div className="px-6 py-4" style={{ background: "var(--ink)", color: "var(--sand)" }}>
-                  <span className="text-xs font-medium tracking-widest uppercase">From the Email Swipe File</span>
-                </div>
-                <div className="p-6">
-                  <div className="p-4 rounded-xl" style={{ background: "var(--cream)" }}>
-                    <p className="text-xs mb-1" style={{ color: "var(--ink-muted)" }}>Subject:</p>
-                    <p className="text-sm font-medium mb-3" style={{ color: "var(--ink)" }}>Your smile deserves this (quick read)</p>
-                    <p className="text-xs mb-1" style={{ color: "var(--ink-muted)" }}>Preview:</p>
-                    <p className="text-sm leading-relaxed" style={{ color: "var(--ink-light)" }}>
-                      Hi [First Name], Welcome to [Your Practice Name]! Here&rsquo;s what you can expect: General dentistry tailored to your needs, Cosmetic dentistry using the best techniques, Expert guidance from our experienced team...
-                    </p>
-                  </div>
-                  <p className="text-xs text-center pt-3" style={{ color: "var(--ink-muted)" }}>+ 9 more templates (referrals, promos, newsletters...)</p>
-                </div>
-              </div>
-
-              {/* SEO Keywords Preview */}
-              <div className="rounded-2xl overflow-hidden" style={{ background: "var(--warm-white)", border: "1px solid var(--border)" }}>
-                <div className="px-6 py-4" style={{ background: "var(--ink)", color: "var(--sand)" }}>
-                  <span className="text-xs font-medium tracking-widest uppercase">From the SEO Toolkit</span>
-                </div>
-                <div className="p-6">
-                  <div className="space-y-2">
-                    {[
-                      { kw: "dentist near me", intent: "Local", diff: "High" },
-                      { kw: "teeth whitening cost", intent: "Commercial", diff: "Medium" },
-                      { kw: "how to fix a chipped tooth", intent: "Informational", diff: "Low" },
-                    ].map((k, i) => (
-                      <div key={i} className="flex items-center justify-between p-3 rounded-lg" style={{ background: "var(--cream)" }}>
-                        <span className="text-sm" style={{ color: "var(--ink)" }}>{k.kw}</span>
-                        <div className="flex gap-2">
-                          <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: "var(--sage-light)", color: "var(--sage)" }}>{k.intent}</span>
-                          <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: k.diff === "Low" ? "var(--sage-light)" : k.diff === "Medium" ? "var(--sand)" : "#fde8e8", color: k.diff === "Low" ? "var(--sage)" : k.diff === "Medium" ? "var(--terracotta-dark)" : "#c45d3e" }}>{k.diff}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <p className="text-xs text-center pt-3" style={{ color: "var(--ink-muted)" }}>+ 7 more keywords with content ideas and priority rankings</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ════════ PRODUCTS ════════ */}
-      <section id="products" className="noise-bg py-20 px-6" style={{ background: "var(--cream)" }}>
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
-            <p className="text-sm font-medium tracking-widest uppercase mb-3" style={{ color: "var(--terracotta)" }}>
-              What&rsquo;s inside
-            </p>
-            <h2
-              className="text-3xl md:text-4xl mb-3"
-              style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}
-            >
-              Five products. One mission.
+              5 courses. Everything you need.
             </h2>
             <p className="text-base max-w-lg mx-auto" style={{ color: "var(--ink-muted)" }}>
-              Each product handles a different part of your marketing so you can focus on running your business.
+              From picking a product to automating your marketing — each course solves one piece of the puzzle.
             </p>
           </div>
 
-          <div className="space-y-6">
-            {PRODUCTS.map((product, idx) => (
+          <div className="space-y-5">
+            {COURSES.map((course, idx) => (
               <div
-                key={product.id}
+                key={idx}
                 className="hover-lift rounded-2xl overflow-hidden"
                 style={{ background: "var(--warm-white)", border: "1px solid var(--border)" }}
               >
                 <div className="md:flex">
-                  {/* Left accent strip */}
-                  <div
-                    className="hidden md:block w-1.5 shrink-0"
-                    style={{ background: product.accent }}
-                  />
-
-                  {/* Content */}
+                  <div className="hidden md:block w-1.5 shrink-0" style={{ background: "var(--terracotta)" }} />
                   <div className="flex-1 p-8 md:p-10">
                     <div className="md:flex md:items-start md:justify-between md:gap-8">
                       <div className="flex-1 mb-6 md:mb-0">
                         <div className="flex items-center gap-3 mb-3">
-                          <span
-                            className="text-xs font-medium px-2.5 py-1 rounded-full"
-                            style={{ background: "var(--sage-light)", color: "var(--sage)" }}
-                          >
-                            {product.tag}
+                          <span className="text-xs font-medium px-2.5 py-1 rounded-full" style={{ background: "var(--sage-light)", color: "var(--sage)" }}>
+                            {course.tag}
                           </span>
-                          <span className="text-xs" style={{ color: "var(--ink-muted)" }}>
-                            #{String(idx + 1).padStart(2, "0")}
-                          </span>
+                          <span className="text-xs" style={{ color: "var(--ink-muted)" }}>{course.modules}</span>
                         </div>
-                        <h3
-                          className="text-xl md:text-2xl mb-3"
-                          style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}
-                        >
-                          {product.name}
+                        <h3 className="text-xl md:text-2xl mb-3" style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}>
+                          {course.title}
                         </h3>
                         <p className="text-sm leading-relaxed max-w-lg" style={{ color: "var(--ink-light)" }}>
-                          {product.description}
+                          {course.description}
                         </p>
                       </div>
-
-                      {/* Right side: includes + price */}
-                      <div className="shrink-0 md:w-72">
-                        <ul className="space-y-2 mb-6">
-                          {product.includes.map((item, i) => (
+                      <div className="shrink-0 md:w-64">
+                        <ul className="space-y-2">
+                          {course.topics.map((topic, i) => (
                             <li key={i} className="flex items-start gap-2.5 text-sm" style={{ color: "var(--ink-light)" }}>
                               <CheckMark />
-                              {item}
+                              {topic}
                             </li>
                           ))}
                         </ul>
-                        <div className="flex items-center justify-between pt-4" style={{ borderTop: "1px solid var(--border)" }}>
-                          <span className="text-2xl font-medium" style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}>
-                            ${product.price}
-                          </span>
-                          <a
-                            href={process.env[product.envKey] || lemonBase}
-                            className="inline-flex items-center px-5 py-2.5 rounded-full text-sm font-medium transition hover:opacity-90"
-                            style={{ background: "var(--ink)", color: "var(--warm-white)" }}
-                          >
-                            Buy now
-                            <ArrowIcon />
-                          </a>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -440,117 +285,120 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ════════ BUNDLE ════════ */}
-      <section id="bundle" className="py-20 px-6" style={{ background: "var(--warm-white)" }}>
-        <div className="max-w-2xl mx-auto text-center">
+      {/* ════════ TEMPLATES INCLUDED ════════ */}
+      <section className="py-20 px-6" style={{ background: "var(--warm-white)", borderTop: "1px solid var(--border)" }}>
+        <div className="max-w-4xl mx-auto text-center">
           <p className="text-sm font-medium tracking-widest uppercase mb-3" style={{ color: "var(--terracotta)" }}>
-            Best value
+            Included with every plan
           </p>
-          <h2
-            className="text-3xl md:text-4xl mb-3"
-            style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}
-          >
-            Get everything.
+          <h2 className="text-3xl md:text-4xl mb-3" style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}>
+            Ready-made templates too
           </h2>
-          <p className="text-base mb-10" style={{ color: "var(--ink-muted)" }}>
-            All 5 products for one niche of your choice. Save 30%.
+          <p className="text-base mb-10 max-w-md mx-auto" style={{ color: "var(--ink-muted)" }}>
+            Don&rsquo;t just learn — launch. Every subscriber gets downloadable business templates for 6 niches.
           </p>
-
-          <div
-            className="rounded-3xl p-8 md:p-12 text-left"
-            style={{ background: "var(--cream)", border: "1.5px solid var(--sand-dark)" }}
-          >
-            <div className="flex items-start justify-between mb-8 flex-wrap gap-4">
-              <div>
-                <h3
-                  className="text-2xl md:text-3xl mb-1"
-                  style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}
-                >
-                  Complete NicheKit Bundle
-                </h3>
-                <p className="text-sm" style={{ color: "var(--ink-muted)" }}>
-                  One niche. Everything you need.
-                </p>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {["90-Day Social Media Calendar", "Email Marketing Swipe File", "Business Document Kit", "SEO Starter Toolkit", "Client Acquisition Playbook", "30+ Files Per Niche"].map((item, i) => (
+              <div key={i} className="p-4 rounded-xl text-sm" style={{ background: "var(--cream)", border: "1px solid var(--border)", color: "var(--ink-light)" }}>
+                {item}
               </div>
-              <div className="text-right">
-                <span className="block text-3xl font-medium" style={{ fontFamily: "var(--font-display)", color: "var(--terracotta)" }}>
-                  ${BUNDLE_PRICE}
-                </span>
-                <span className="text-sm line-through" style={{ color: "var(--ink-muted)" }}>
-                  ${BUNDLE_ORIGINAL}
-                </span>
-              </div>
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-3 mb-10">
-              {PRODUCTS.map((p) => (
-                <div key={p.id} className="flex items-start gap-2.5 text-sm" style={{ color: "var(--ink-light)" }}>
-                  <CheckMark />
-                  <span>{p.name}</span>
-                </div>
-              ))}
-              <div className="flex items-start gap-2.5 text-sm font-medium" style={{ color: "var(--terracotta)" }}>
-                <CheckMark />
-                <span>Lifetime access + future updates</span>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <a
-                href={process.env.NEXT_PUBLIC_LEMON_BUNDLE || lemonBase}
-                className="inline-flex items-center px-10 py-4 rounded-full text-base font-medium transition hover:opacity-90"
-                style={{ background: "var(--terracotta)", color: "white" }}
-              >
-                Get the Complete Bundle — ${BUNDLE_PRICE}
-                <ArrowIcon />
-              </a>
-              <p className="text-xs mt-4" style={{ color: "var(--ink-muted)" }}>
-                One-time payment &middot; Instant download &middot; Choose your niche at checkout
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
+      {/* ════════ PRICING ════════ */}
+      <section id="pricing" className="noise-bg py-20 px-6" style={{ background: "var(--cream)" }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="text-sm font-medium tracking-widest uppercase mb-3" style={{ color: "var(--terracotta)" }}>
+              Simple pricing
+            </p>
+            <h2 className="text-3xl md:text-4xl mb-3" style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}>
+              Start free. Upgrade when ready.
+            </h2>
+            <p className="text-base max-w-md mx-auto" style={{ color: "var(--ink-muted)" }}>
+              All prices in AUD. Cancel anytime. No lock-in contracts.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {PLANS.map((plan) => (
+              <div
+                key={plan.name}
+                className="rounded-2xl p-6 flex flex-col"
+                style={{
+                  background: plan.highlight ? "var(--ink)" : "var(--warm-white)",
+                  border: plan.highlight ? "none" : "1px solid var(--border)",
+                  color: plan.highlight ? "var(--sand)" : "var(--ink-light)",
+                }}
+              >
+                {plan.highlight && (
+                  <span className="self-start text-xs font-medium px-2.5 py-0.5 rounded-full mb-4" style={{ background: "var(--terracotta)", color: "white" }}>
+                    Most Popular
+                  </span>
+                )}
+                <h3 className="text-xl mb-1" style={{ fontFamily: "var(--font-display)", color: plan.highlight ? "var(--warm-white)" : "var(--ink)" }}>
+                  {plan.name}
+                </h3>
+                <div className="flex items-baseline gap-0.5 mb-3">
+                  <span className="text-3xl font-medium" style={{ fontFamily: "var(--font-display)", color: plan.highlight ? "var(--warm-white)" : "var(--ink)" }}>
+                    {plan.price}
+                  </span>
+                  {plan.period && <span className="text-sm">{plan.period}</span>}
+                </div>
+                <p className="text-sm mb-6">{plan.description}</p>
+                <ul className="space-y-2.5 mb-8 flex-1">
+                  {plan.features.map((f, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-sm">
+                      <CheckMark />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={plan.href}
+                  className="block text-center w-full py-3 rounded-full text-sm font-medium transition hover:opacity-90"
+                  style={
+                    plan.highlight
+                      ? { background: "var(--terracotta)", color: "white" }
+                      : plan.name === "Pro"
+                      ? { background: "var(--ink)", color: "var(--warm-white)" }
+                      : { border: "1.5px solid var(--border)", color: "var(--ink-light)" }
+                  }
+                >
+                  {plan.cta}
+                </Link>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center text-sm mt-8" style={{ color: "var(--ink-muted)" }}>
+            Also available: <Link href="/pricing" className="underline" style={{ color: "var(--terracotta)" }}>Lifetime access for $297</Link> (one-time, no consultations)
+          </p>
+        </div>
+      </section>
+
       {/* ════════ HOW IT WORKS ════════ */}
-      <section className="py-20 px-6" style={{ background: "var(--cream)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
+      <section className="py-20 px-6" style={{ background: "var(--warm-white)", borderTop: "1px solid var(--border)" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl" style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}>
-              Three steps. Done.
+              How it works
             </h2>
           </div>
           <div className="grid md:grid-cols-3 gap-10">
             {[
-              {
-                num: "01",
-                title: "Pick your niche",
-                desc: "Choose from 6 industries. Every word is customized to your market.",
-              },
-              {
-                num: "02",
-                title: "Download instantly",
-                desc: "CSV, PDF, and HTML files — open in Google Sheets, any browser, or email tool.",
-              },
-              {
-                num: "03",
-                title: "Customize & launch",
-                desc: "Fill in your details, schedule your content, and start marketing like a pro.",
-              },
+              { num: "01", title: "Sign up free", desc: "Get instant access to Module 1 and sample templates. See if it's right for you — no credit card needed." },
+              { num: "02", title: "Follow the courses", desc: "Step-by-step guides with real examples. AI does the heavy lifting — you make the decisions." },
+              { num: "03", title: "Launch & earn", desc: "Use the templates, scripts, and playbooks to go live. Start making sales while you're still learning." },
             ].map((step) => (
               <div key={step.num}>
-                <span
-                  className="block text-5xl font-medium mb-4"
-                  style={{ fontFamily: "var(--font-display)", color: "var(--sand-dark)" }}
-                >
+                <span className="block text-5xl font-medium mb-4" style={{ fontFamily: "var(--font-display)", color: "var(--sand-dark)" }}>
                   {step.num}
                 </span>
-                <h3 className="text-lg font-medium mb-2" style={{ color: "var(--ink)" }}>
-                  {step.title}
-                </h3>
-                <p className="text-sm leading-relaxed" style={{ color: "var(--ink-light)" }}>
-                  {step.desc}
-                </p>
+                <h3 className="text-lg font-medium mb-2" style={{ color: "var(--ink)" }}>{step.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: "var(--ink-light)" }}>{step.desc}</p>
               </div>
             ))}
           </div>
@@ -558,48 +406,23 @@ export default function HomePage() {
       </section>
 
       {/* ════════ FAQ ════════ */}
-      <section className="py-20 px-6" style={{ background: "var(--warm-white)" }}>
+      <section className="py-20 px-6" style={{ background: "var(--cream)", borderTop: "1px solid var(--border)" }}>
         <div className="max-w-2xl mx-auto">
-          <h2
-            className="text-3xl md:text-4xl text-center mb-14"
-            style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}
-          >
+          <h2 className="text-3xl md:text-4xl text-center mb-14" style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}>
             Common questions
           </h2>
           <div className="space-y-0">
             {[
-              {
-                q: "What format are the files?",
-                a: "Social media calendars are CSV (opens in Excel or Google Sheets). Email templates are HTML. Guides and documents are PDF. No special software needed.",
-              },
-              {
-                q: "Can I use these for my clients?",
-                a: "Yes. You have a personal and business use license. Customize them for your clients freely. The only restriction is reselling the original files as-is.",
-              },
-              {
-                q: "Is this a subscription?",
-                a: "No. One-time purchase, lifetime access. You also get any future updates to your purchased products at no extra cost.",
-              },
-              {
-                q: "What if it's not right for me?",
-                a: "We offer a 30-day money-back guarantee. If the quality isn't what you expected, email us for a full refund — no questions asked.",
-              },
-              {
-                q: "My niche isn't listed yet.",
-                a: "We're adding new niches regularly. Email us your request and we'll prioritize the most popular ones.",
-              },
+              { q: "Do I need technical skills?", a: "No. The courses are designed for complete beginners. AI handles the technical parts — you follow step-by-step guides." },
+              { q: "Why not just use Shopify?", a: "Shopify costs $79+ AUD/month, takes a 2% transaction fee, and locks you into their ecosystem. We teach you to build on free/low-cost platforms you own and control." },
+              { q: "Is this for Australians only?", a: "The courses work globally, but we focus on Australian specifics — ABN, GST, AUD pricing, Aussie payment processors, Australian consumer law, and local marketing tactics." },
+              { q: "What if I already have a store?", a: "The SEO, email, and social media courses are valuable for any existing business. The consultation calls (Pro plan) are perfect for getting specific feedback on your store." },
+              { q: "Can I cancel anytime?", a: "Yes. Cancel from your dashboard. You keep access until the end of your billing period. No lock-in, no exit fees." },
+              { q: "What's the consultation like?", a: "A 30-minute video call where we review your store, answer questions, and give you a clear action plan. Available monthly on the Pro plan." },
             ].map((faq, i) => (
-              <div
-                key={i}
-                className="py-6"
-                style={{ borderBottom: "1px solid var(--border)" }}
-              >
-                <h3 className="text-base font-medium mb-2" style={{ color: "var(--ink)" }}>
-                  {faq.q}
-                </h3>
-                <p className="text-sm leading-relaxed" style={{ color: "var(--ink-light)" }}>
-                  {faq.a}
-                </p>
+              <div key={i} className="py-6" style={{ borderBottom: "1px solid var(--border)" }}>
+                <h3 className="text-base font-medium mb-2" style={{ color: "var(--ink)" }}>{faq.q}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: "var(--ink-light)" }}>{faq.a}</p>
               </div>
             ))}
           </div>
@@ -607,40 +430,34 @@ export default function HomePage() {
       </section>
 
       {/* ════════ EMAIL CAPTURE ════════ */}
-      <section className="py-16 px-6" style={{ background: "var(--cream)", borderTop: "1px solid var(--border)" }}>
+      <section className="py-16 px-6" style={{ background: "var(--warm-white)", borderTop: "1px solid var(--border)" }}>
         <div className="max-w-xl mx-auto text-center">
           <h2 className="text-2xl md:text-3xl mb-3" style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}>
-            Not ready to buy?
+            Not ready to commit?
           </h2>
           <p className="text-sm mb-6" style={{ color: "var(--ink-muted)" }}>
-            Get 3 free social media post templates for your niche. No spam, unsubscribe anytime.
+            Get a free guide: &ldquo;5 AI Tools That Replace a $5K Web Developer&rdquo; — straight to your inbox.
           </p>
           <EmailCapture />
         </div>
       </section>
 
       {/* ════════ FINAL CTA ════════ */}
-      <section
-        className="noise-bg py-24 px-6 text-center"
-        style={{ background: "var(--ink)" }}
-      >
-        <h2
-          className="text-3xl md:text-4xl mb-4"
-          style={{ fontFamily: "var(--font-display)", color: "var(--warm-white)" }}
-        >
-          Stop building from scratch.
+      <section className="noise-bg py-24 px-6 text-center" style={{ background: "var(--ink)" }}>
+        <h2 className="text-3xl md:text-4xl mb-4" style={{ fontFamily: "var(--font-display)", color: "var(--warm-white)" }}>
+          Your store won&rsquo;t build itself.
         </h2>
         <p className="text-base mb-10 max-w-md mx-auto" style={{ color: "var(--sand)" }}>
-          Professional templates, written for your niche, ready to use today.
+          But with AI and the right plan, it&rsquo;s a lot closer than you think.
         </p>
-        <a
-          href="#bundle"
+        <Link
+          href="/signup"
           className="inline-flex items-center px-10 py-4 rounded-full text-base font-medium transition hover:opacity-90"
           style={{ background: "var(--terracotta)", color: "white" }}
         >
-          Get the Complete Bundle — ${BUNDLE_PRICE}
+          Start learning free
           <ArrowIcon />
-        </a>
+        </Link>
       </section>
 
       {/* ════════ FOOTER ════════ */}
@@ -648,6 +465,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm" style={{ color: "var(--ink-muted)" }}>
           <span style={{ fontFamily: "var(--font-display)", color: "var(--ink-light)" }}>NicheKit</span>
           <div className="flex items-center gap-6">
+            <Link href="/pricing" className="hover:text-[var(--ink)] transition">Pricing</Link>
             <Link href="/terms" className="hover:text-[var(--ink)] transition">Terms</Link>
             <Link href="/privacy" className="hover:text-[var(--ink)] transition">Privacy</Link>
             <a href="mailto:support@nichekit.co" className="hover:text-[var(--ink)] transition">Contact</a>
