@@ -5,6 +5,8 @@ export interface ModuleMeta {
   slug: string;
   title: string;
   free: boolean;
+  time?: string;
+  quickWin?: string;
 }
 
 export interface CourseMeta {
@@ -12,6 +14,8 @@ export interface CourseMeta {
   slug: string;
   description: string;
   tag: string;
+  time?: string;
+  outcome?: string;
   modules: ModuleMeta[];
 }
 

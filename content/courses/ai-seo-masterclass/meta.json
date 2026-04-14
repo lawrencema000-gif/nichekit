@@ -1,14 +1,16 @@
 {
-  "title": "AI SEO That Actually Works",
+  "title": "Rank on Google Without Paying Agencies",
   "slug": "ai-seo-masterclass",
-  "description": "Rank on Google without an agency. AI-powered keyword research, content creation, and local SEO for Aussie businesses.",
-  "tag": "Mini Course",
+  "description": "AI-powered keyword research, content creation, and local SEO. Get found by Australians searching for what you sell.",
+  "tag": "Growth",
+  "time": "~3 hours",
+  "outcome": "SEO strategy + first ranking content published",
   "modules": [
-    { "slug": "01-seo-basics", "title": "SEO in 10 Minutes (Everything You Need)", "free": false },
-    { "slug": "02-ai-keyword-research", "title": "AI Keyword Research for Australians", "free": false },
-    { "slug": "03-content-that-ranks", "title": "Write Content That Ranks (AI Does 90%)", "free": false },
-    { "slug": "04-local-seo-australia", "title": "Local SEO: Dominate Your Suburb", "free": false },
-    { "slug": "05-google-business", "title": "Google Business Profile Masterclass", "free": false },
-    { "slug": "06-ai-seo-tools", "title": "Get Cited by ChatGPT & Perplexity", "free": false }
+    { "slug": "01-seo-basics", "title": "SEO in 10 Minutes (Everything You Need)", "free": false, "time": "15 min", "quickWin": "Search your product on Google and identify your top 3 competitors" },
+    { "slug": "02-ai-keyword-research", "title": "AI Keyword Research for Australians", "free": false, "time": "40 min", "quickWin": "Generate 30 keyword ideas with one AI prompt" },
+    { "slug": "03-content-that-ranks", "title": "Write Content That Ranks (AI Does 90%)", "free": false, "time": "45 min", "quickWin": "Publish your first SEO blog post using the template" },
+    { "slug": "04-local-seo-australia", "title": "Local SEO: Dominate Your Suburb", "free": false, "time": "30 min", "quickWin": "Create your Google Business Profile in 15 minutes" },
+    { "slug": "05-google-business", "title": "Google Business Profile Masterclass", "free": false, "time": "30 min", "quickWin": "Upload 10 photos and post your first GBP update" },
+    { "slug": "06-ai-seo-tools", "title": "Get Cited by ChatGPT & Perplexity", "free": false, "time": "20 min", "quickWin": "Ask ChatGPT about your product category — see if you appear" }
   ]
 }

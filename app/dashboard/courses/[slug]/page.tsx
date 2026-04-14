@@ -53,9 +53,14 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
         <h1 className="text-2xl mb-2" style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}>
           {course.title}
         </h1>
-        <p className="text-sm mb-4" style={{ color: "var(--ink-light)" }}>
+        <p className="text-sm mb-2" style={{ color: "var(--ink-light)" }}>
           {course.description}
         </p>
+        {course.outcome && (
+          <p className="text-xs mb-4 flex items-center gap-2" style={{ color: "var(--terracotta)" }}>
+            <span>🎯</span> Outcome: {course.outcome}
+          </p>
+        )}
 
         {/* Progress bar */}
         {hasAccess && (
@@ -88,7 +93,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
                 opacity: locked ? 0.5 : 1,
               }}
             >
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 flex-1 min-w-0">
                 <span
                   className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium shrink-0"
                   style={{
@@ -99,12 +104,22 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
                 >
                   {completed ? "✓" : idx + 1}
                 </span>
-                <div>
-                  <span className="text-sm font-medium block" style={{ color: "var(--ink)" }}>
-                    {mod.title}
-                  </span>
-                  {mod.free && !hasAccess && (
-                    <span className="text-xs" style={{ color: "var(--sage)" }}>Free preview</span>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-sm font-medium" style={{ color: "var(--ink)" }}>
+                      {mod.title}
+                    </span>
+                    {mod.time && (
+                      <span className="text-xs" style={{ color: "var(--ink-muted)" }}>&middot; {mod.time}</span>
+                    )}
+                    {mod.free && !hasAccess && (
+                      <span className="text-xs px-1.5 py-0.5 rounded" style={{ background: "var(--sage-light)", color: "var(--sage)" }}>Free</span>
+                    )}
+                  </div>
+                  {mod.quickWin && (
+                    <p className="text-xs mt-0.5 hidden sm:block" style={{ color: "var(--ink-muted)" }}>
+                      Quick win: {mod.quickWin}
+                    </p>
                   )}
                 </div>
               </div>

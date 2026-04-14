@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase-server";
 import DashboardShell from "@/components/DashboardShell";
 
@@ -14,7 +15,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
     .eq("id", user.id)
     .single();
 
-  // If profile is missing, create one on the fly (self-healing)
+  // Self-healing: create profile if missing
   if (!profile || profileError) {
     await supabase.from("user_profiles").upsert({
       id: user.id,
@@ -23,21 +24,21 @@ export default async function DashboardLayout({ children }: { children: React.Re
       plan: "free",
     }, { onConflict: "id" });
 
-    // Reload to get the fresh profile
-    const { data: freshProfile } = await supabase
-      .from("user_profiles")
-      .select("*")
-      .eq("id", user.id)
-      .single();
+    redirect("/dashboard/onboarding");
+  }
 
-    return (
-      <DashboardShell
-        user={{ id: user.id, email: user.email || "" }}
-        plan={freshProfile?.plan || "free"}
-      >
-        {children}
-      </DashboardShell>
-    );
+  // Redirect to onboarding if not completed (skip if already on onboarding page)
+  const headerList = await headers();
+  const pathname = headerList.get("x-next-url") || headerList.get("x-invoke-path") || "";
+  const isOnboardingPage = pathname.includes("/onboarding");
+
+  if (!profile.onboarded && !isOnboardingPage) {
+    redirect("/dashboard/onboarding");
+  }
+
+  // Skip shell on onboarding page for a clean fullscreen experience
+  if (isOnboardingPage) {
+    return <>{children}</>;
   }
 
   return (

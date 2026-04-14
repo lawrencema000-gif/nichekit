@@ -1,13 +1,15 @@
 {
   "title": "Email Marketing Machine",
   "slug": "email-marketing-with-ai",
-  "description": "Build an email list and write sequences that convert — using AI to do 90% of the work.",
-  "tag": "Mini Course",
+  "description": "Build an email list and write sequences that convert — AI does 90% of the work. Stop paying Mailchimp $50/mo.",
+  "tag": "Growth",
+  "time": "~2.5 hours",
+  "outcome": "Automated email sequences running 24/7",
   "modules": [
-    { "slug": "01-email-tools", "title": "Free Email Tools That Scale", "free": false },
-    { "slug": "02-welcome-sequence", "title": "AI-Written Welcome Sequences", "free": false },
-    { "slug": "03-cart-recovery", "title": "Abandoned Cart Recovery", "free": false },
-    { "slug": "04-newsletter-autopilot", "title": "Monthly Newsletter on Autopilot", "free": false },
-    { "slug": "05-list-building", "title": "List Building Without Annoying Popups", "free": false }
+    { "slug": "01-email-tools", "title": "Free Email Tools That Actually Scale", "free": false, "time": "20 min", "quickWin": "Set up Resend and send yourself a test email" },
+    { "slug": "02-welcome-sequence", "title": "AI-Written Welcome Sequences", "free": false, "time": "40 min", "quickWin": "Write all 5 welcome emails using the AI prompts" },
+    { "slug": "03-cart-recovery", "title": "Abandoned Cart Recovery ($630/mo in Recovered Sales)", "free": false, "time": "30 min", "quickWin": "Write your 3 cart recovery emails — takes 10 minutes" },
+    { "slug": "04-newsletter-autopilot", "title": "Monthly Newsletter on Autopilot", "free": false, "time": "20 min", "quickWin": "Write your first newsletter in 10 minutes with the AI template" },
+    { "slug": "05-list-building", "title": "Grow Your List Without Annoying Popups", "free": false, "time": "30 min", "quickWin": "Add an email capture form to your site footer" }
   ]
 }

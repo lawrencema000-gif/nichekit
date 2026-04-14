@@ -1,18 +1,20 @@
 {
-  "title": "Build Your Own Online Store with AI",
+  "title": "Build Your Own E-Commerce Store with AI",
   "slug": "build-ecommerce-with-ai",
-  "description": "The complete guide to launching a profitable e-commerce store without Shopify — using AI tools, free platforms, and Australian-first strategies.",
+  "description": "The complete guide to a profitable online store — without Shopify, without agencies. AI builds it, you launch it.",
   "tag": "Core Course",
+  "time": "~6 hours",
+  "outcome": "A live store accepting payments with automated marketing",
   "modules": [
-    { "slug": "01-why-not-shopify", "title": "Why Not Shopify (And What to Use Instead)", "free": true },
-    { "slug": "02-pick-your-product", "title": "Pick Your Product in 2 Hours", "free": true },
-    { "slug": "03-your-tech-stack", "title": "Your Tech Stack (Free or Nearly Free)", "free": false },
-    { "slug": "04-ai-builds-your-store", "title": "Let AI Build Your Store", "free": false },
-    { "slug": "05-products-and-pages", "title": "AI-Generated Products & Pages", "free": false },
-    { "slug": "06-payments-shipping-tax", "title": "Payments, Shipping & GST (Australia)", "free": false },
-    { "slug": "07-launch-checklist", "title": "The Launch Checklist", "free": false },
-    { "slug": "08-first-10-customers", "title": "Get Your First 10 Customers", "free": false },
-    { "slug": "09-automate-everything", "title": "Automate Everything", "free": false },
-    { "slug": "10-scale-or-repeat", "title": "Scale This Store or Build Another", "free": false }
+    { "slug": "01-why-not-shopify", "title": "Why Not Shopify (And What to Use Instead)", "free": true, "time": "15 min", "quickWin": "Calculate how much Shopify would cost you per year" },
+    { "slug": "02-pick-your-product", "title": "Pick Your Product in 2 Hours", "free": true, "time": "45 min", "quickWin": "Use the AI prompt to generate 20 product ideas in 5 minutes" },
+    { "slug": "03-your-tech-stack", "title": "Your Tech Stack (Free or Nearly Free)", "free": false, "time": "30 min", "quickWin": "Create all 5 free accounts in 20 minutes" },
+    { "slug": "04-ai-builds-your-store", "title": "Let AI Build Your Store", "free": false, "time": "90 min", "quickWin": "Have a working homepage in under 10 minutes with one AI prompt" },
+    { "slug": "05-products-and-pages", "title": "AI-Generated Products & Pages", "free": false, "time": "60 min", "quickWin": "Generate all your product descriptions in one batch prompt" },
+    { "slug": "06-payments-shipping-tax", "title": "Payments, Shipping & GST (Australia)", "free": false, "time": "30 min", "quickWin": "Enable Afterpay in Stripe — takes 2 clicks" },
+    { "slug": "07-launch-checklist", "title": "The Launch Checklist", "free": false, "time": "45 min", "quickWin": "Do the $1 test purchase to verify everything works" },
+    { "slug": "08-first-10-customers", "title": "Get Your First 10 Customers", "free": false, "time": "60 min", "quickWin": "Send 5 direct messages to people who'd actually buy right now" },
+    { "slug": "09-automate-everything", "title": "Automate Everything", "free": false, "time": "60 min", "quickWin": "Set up your post-purchase email sequence in 15 minutes" },
+    { "slug": "10-scale-or-repeat", "title": "Scale This Store or Build Another", "free": false, "time": "30 min", "quickWin": "Run the ROI calculation to decide: scale or build another" }
   ]
 }

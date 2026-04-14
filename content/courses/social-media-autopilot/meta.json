@@ -1,13 +1,15 @@
 {
-  "title": "Social Media on Autopilot",
+  "title": "Post on 4 Platforms While You Sleep",
   "slug": "social-media-autopilot",
-  "description": "Set up automated posting across Instagram, TikTok, X, and LinkedIn. AI writes it, tools post it, you sleep.",
-  "tag": "Mini Course",
+  "description": "AI generates 30 days of content in 30 minutes. Schedule it once, post everywhere. Engagement on autopilot.",
+  "tag": "Growth",
+  "time": "~2.5 hours",
+  "outcome": "30 days of social content scheduled across all platforms",
   "modules": [
-    { "slug": "01-ai-content-generation", "title": "AI Content Generation at Scale", "free": false },
-    { "slug": "02-scheduling-tools", "title": "Auto-Scheduling Tools That Work", "free": false },
-    { "slug": "03-platform-strategies", "title": "Platform-Specific Strategies", "free": false },
-    { "slug": "04-engagement-automation", "title": "Engagement Without Being Online", "free": false },
-    { "slug": "05-content-repurposing", "title": "One Piece of Content, 5 Platforms", "free": false }
+    { "slug": "01-ai-content-generation", "title": "Create 30 Posts in 30 Minutes", "free": false, "time": "30 min", "quickWin": "Run the master prompt and generate a full month of content" },
+    { "slug": "02-scheduling-tools", "title": "Schedule Once, Post All Month", "free": false, "time": "30 min", "quickWin": "Upload your first week of posts to Buffer (free)" },
+    { "slug": "03-platform-strategies", "title": "What Actually Works on Each Platform", "free": false, "time": "30 min", "quickWin": "Write one TikTok script using the hook formula" },
+    { "slug": "04-engagement-automation", "title": "The 15-Minute Daily Engagement Routine", "free": false, "time": "20 min", "quickWin": "Set a timer and do the routine once — reply, engage, discover" },
+    { "slug": "05-content-repurposing", "title": "One Piece of Content, 5 Platforms", "free": false, "time": "30 min", "quickWin": "Take one blog post and repurpose it into 6 social posts with AI" }
   ]
 }
