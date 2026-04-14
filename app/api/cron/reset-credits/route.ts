@@ -4,11 +4,16 @@ import { createAdminClient } from "@/lib/supabase-admin";
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-  // Verify cron secret to prevent unauthorized calls
+  // Verify cron secret — always required
   const authHeader = req.headers.get("authorization");
   const cronSecret = process.env.CRON_SECRET;
 
-  if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
+  if (!cronSecret) {
+    console.error("[Cron] CRON_SECRET not configured");
+    return NextResponse.json({ error: "Cron not configured" }, { status: 500 });
+  }
+
+  if (authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

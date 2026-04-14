@@ -10,6 +10,7 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [confirmationSent, setConfirmationSent] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,7 +22,10 @@ export default function SignupPage() {
     const { data, error: signUpError } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { full_name: fullName } },
+      options: {
+        data: { full_name: fullName },
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=/dashboard`,
+      },
     });
 
     if (signUpError) {
@@ -30,32 +34,79 @@ export default function SignupPage() {
       return;
     }
 
-    if (data.user) {
-      const { error: profileError } = await supabase.from("user_profiles").insert({
+    // Check if email confirmation is required
+    // When confirmation is needed, data.session will be null
+    if (data.user && !data.session) {
+      // Email confirmation required — create profile anyway (it'll be ready when they confirm)
+      await supabase.from("user_profiles").upsert({
         id: data.user.id,
         email,
         full_name: fullName,
         plan: "free",
-      });
+      }, { onConflict: "id" });
+
+      setConfirmationSent(true);
+      setLoading(false);
+      return;
+    }
+
+    // No confirmation needed — user is logged in immediately
+    if (data.user) {
+      const { error: profileError } = await supabase.from("user_profiles").upsert({
+        id: data.user.id,
+        email,
+        full_name: fullName,
+        plan: "free",
+      }, { onConflict: "id" });
 
       if (profileError) {
-        // Profile failed but auth succeeded — retry once
-        const { error: retryError } = await supabase.from("user_profiles").insert({
-          id: data.user.id,
-          email,
-          full_name: fullName,
-          plan: "free",
-        });
-        if (retryError) {
-          setError("Account created but profile setup failed. Please log in and try again, or contact support.");
-          setLoading(false);
-          return;
-        }
+        setError("Account created but profile setup failed. Please log in and try again.");
+        setLoading(false);
+        return;
       }
     }
 
     window.location.href = "/dashboard";
   };
+
+  // Email confirmation sent — show check-your-email screen
+  if (confirmationSent) {
+    return (
+      <div className="min-h-screen flex items-center justify-center px-4" style={{ background: "var(--cream)" }}>
+        <div className="w-full max-w-sm text-center">
+          <Link href="/" className="text-2xl" style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}>
+            NicheKit
+          </Link>
+
+          <div className="mt-8 p-6 rounded-2xl" style={{ background: "var(--warm-white)", border: "1px solid var(--border)" }}>
+            <span className="text-3xl block mb-4">📬</span>
+            <h2 className="text-lg mb-2" style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}>
+              Check your email
+            </h2>
+            <p className="text-sm mb-4" style={{ color: "var(--ink-light)" }}>
+              We sent a confirmation link to <strong style={{ color: "var(--ink)" }}>{email}</strong>.
+              Click the link to activate your account.
+            </p>
+            <p className="text-xs" style={{ color: "var(--ink-muted)" }}>
+              Didn&rsquo;t get it? Check your spam folder, or{" "}
+              <button
+                onClick={() => setConfirmationSent(false)}
+                className="underline"
+                style={{ color: "var(--terracotta)" }}
+              >
+                try again with a different email
+              </button>.
+            </p>
+          </div>
+
+          <p className="text-sm mt-6" style={{ color: "var(--ink-muted)" }}>
+            Already confirmed?{" "}
+            <Link href="/login" className="font-medium" style={{ color: "var(--terracotta)" }}>Log in</Link>
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4" style={{ background: "var(--cream)" }}>
