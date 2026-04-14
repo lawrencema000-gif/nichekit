@@ -1,4 +1,6 @@
 import { createAdminClient } from "@/lib/supabase-admin";
+import { createClient } from "@/lib/supabase-server";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -6,6 +8,17 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "Admin — NicheKit" };
 
 export default async function AdminPage() {
+  // Auth check: only admin email can access
+  const authClient = await createClient();
+  const { data: { user } } = await authClient.auth.getUser();
+
+  if (!user) redirect("/login");
+
+  const adminEmail = process.env.ADMIN_EMAIL;
+  if (!adminEmail || user.email !== adminEmail) {
+    redirect("/dashboard");
+  }
+
   const supabase = createAdminClient();
 
   // Fetch all users

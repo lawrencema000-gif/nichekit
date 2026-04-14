@@ -148,9 +148,13 @@ export async function POST(req: NextRequest) {
         : status === "cancelled" || status === "expired" ? "cancelled"
         : "inactive";
 
+      // Reset consultation credits on renewal (status goes back to active)
+      const creditReset = status === "active" ? { consultation_credits: 1 } : {};
+
       await supabase.from("user_profiles").update({
         subscription_status: mappedStatus,
         subscription_ends_at: endsAt,
+        ...creditReset,
         updated_at: new Date().toISOString(),
       }).eq("lemon_subscription_id", subscriptionId);
 

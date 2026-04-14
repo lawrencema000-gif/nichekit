@@ -58,7 +58,7 @@ export default async function DashboardPage() {
     }
   }
 
-  const totalModules = 33;
+  const totalModules = courses.reduce((sum, c) => sum + c.modules.length, 0);
   const overallPercent = Math.round((completedTotal / totalModules) * 100);
 
   // Days since signup
