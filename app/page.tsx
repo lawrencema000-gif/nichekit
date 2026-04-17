@@ -103,6 +103,7 @@ export default function HomePage() {
           <div className="hidden sm:flex items-center gap-8 text-sm" style={{ color: "var(--ink-light)" }}>
             <a href="#courses" className="hover:text-[var(--ink)] transition">Courses</a>
             <a href="#pricing" className="hover:text-[var(--ink)] transition">Pricing</a>
+            <Link href="/blog" className="hover:text-[var(--ink)] transition">Blog</Link>
             <Link href="/login" className="hover:text-[var(--ink)] transition">Log in</Link>
           </div>
           <Link
@@ -466,6 +467,7 @@ export default function HomePage() {
           <span style={{ fontFamily: "var(--font-display)", color: "var(--ink-light)" }}>NicheKit</span>
           <div className="flex items-center gap-6">
             <Link href="/pricing" className="hover:text-[var(--ink)] transition">Pricing</Link>
+            <Link href="/blog" className="hover:text-[var(--ink)] transition">Blog</Link>
             <Link href="/terms" className="hover:text-[var(--ink)] transition">Terms</Link>
             <Link href="/privacy" className="hover:text-[var(--ink)] transition">Privacy</Link>
             <a href="mailto:support@nichekit.co" className="hover:text-[var(--ink)] transition">Contact</a>
