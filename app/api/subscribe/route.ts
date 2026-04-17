@@ -1,12 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase-admin";
+import { rateLimit, rateLimitResponse } from "@/lib/rate-limit";
+
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 export async function POST(req: NextRequest) {
-  try {
-    const { email } = await req.json();
+  // Rate limit: 5 requests per minute per IP
+  const rl = rateLimit(req, { limit: 5, windowMs: 60_000 });
+  if (!rl.success) return rateLimitResponse();
 
-    if (!email || !email.includes("@")) {
-      return NextResponse.json({ error: "Invalid email" }, { status: 400 });
+  try {
+    const contentLength = parseInt(req.headers.get("content-length") || "0");
+    if (contentLength > 1024) {
+      return NextResponse.json({ error: "Request too large" }, { status: 413 });
+    }
+
+    const body = await req.json();
+    const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
+
+    if (!email || email.length > 254 || !EMAIL_REGEX.test(email)) {
+      return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
     }
 
     const supabase = createAdminClient();

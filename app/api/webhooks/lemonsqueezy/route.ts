@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { sendEmail, orderConfirmationEmail } from "@/lib/email";
 import { createAdminClient } from "@/lib/supabase-admin";
+import { rateLimit, rateLimitResponse } from "@/lib/rate-limit";
 
 export const dynamic = "force-dynamic";
 
@@ -24,6 +25,16 @@ function detectPlan(productName: string, variantName: string): string {
 }
 
 export async function POST(req: NextRequest) {
+  // Rate limit: 30 webhook calls per minute per IP
+  const rl = rateLimit(req, { limit: 30, windowMs: 60_000 });
+  if (!rl.success) return rateLimitResponse();
+
+  // Body size limit: 100KB max
+  const contentLength = parseInt(req.headers.get("content-length") || "0");
+  if (contentLength > 100_000) {
+    return NextResponse.json({ error: "Payload too large" }, { status: 413 });
+  }
+
   const rawBody = await req.text();
   const signature = req.headers.get("x-signature") || "";
   const secret = process.env.LEMON_SQUEEZY_WEBHOOK_SECRET;

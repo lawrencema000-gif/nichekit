@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase-server";
+import { rateLimit, rateLimitResponse } from "@/lib/rate-limit";
 import fs from "fs";
 import path from "path";
 
@@ -13,6 +14,10 @@ const NICHE_MAP: Record<string, string> = {
 };
 
 export async function GET(req: NextRequest) {
+  // Rate limit: 10 downloads per minute per IP
+  const rl = rateLimit(req, { limit: 10, windowMs: 60_000 });
+  if (!rl.success) return rateLimitResponse();
+
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 

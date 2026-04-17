@@ -4,7 +4,12 @@ import { createServerClient } from "@supabase/ssr";
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const code = searchParams.get("code");
-  const next = searchParams.get("next") || "/dashboard";
+  let next = searchParams.get("next") || "/dashboard";
+
+  // Prevent open redirect — only allow relative paths starting with /
+  if (!next.startsWith("/") || next.startsWith("//")) {
+    next = "/dashboard";
+  }
 
   if (code) {
     const res = NextResponse.redirect(new URL(next, req.url));
