@@ -1,4 +1,16 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Pricing",
+  description: "Free, $29/mo Starter, $79/mo Pro, or $297 Lifetime. Access all 5 AI e-commerce courses, 30+ templates, and monthly consultations. AUD pricing.",
+  alternates: { canonical: "/pricing" },
+  openGraph: {
+    title: "Pricing — NicheKit",
+    description: "Simple AUD pricing. Start free. Upgrade when ready. Cancel anytime.",
+    url: "/pricing",
+  },
+};
 
 const PLANS = [
   {

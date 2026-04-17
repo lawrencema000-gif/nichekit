@@ -1,6 +1,12 @@
 import Link from "next/link";
 
-export const metadata = { title: "Terms of Service — NicheKit" };
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms of Service",
+  description: "NicheKit terms of service — licence, payments, refunds, and disclaimers. Australian consumer law compliant.",
+  alternates: { canonical: "/terms" },
+};
 
 export default function TermsPage() {
   return (

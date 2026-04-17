@@ -1,6 +1,12 @@
 import Link from "next/link";
 
-export const metadata = { title: "Privacy Policy — NicheKit" };
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description: "How NicheKit collects, uses, and protects your data. We use LemonSqueezy for payments and don't sell your data.",
+  alternates: { canonical: "/privacy" },
+};
 
 export default function PrivacyPage() {
   return (
