@@ -31,7 +31,7 @@ export async function sendEmail(options: {
   return data;
 }
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://nichekit.vercel.app";
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://nichekit.vercel.app").trim();
 
 export function orderConfirmationEmail(data: {
   customerName: string;

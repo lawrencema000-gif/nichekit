@@ -15,7 +15,7 @@ const dmSerif = DM_Serif_Display({
   display: "swap",
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://nichekit.vercel.app";
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://nichekit.vercel.app").trim();
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
