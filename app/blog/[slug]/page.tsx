@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getAllPosts, getPost } from "@/lib/blog";
+import { autoLinkContent } from "@/lib/internal-links";
 
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://nichekit.vercel.app").trim();
 
@@ -88,7 +89,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const post = getPost(slug);
   if (!post) notFound();
 
-  const html = renderMarkdown(post.content);
+  // Auto-link keyword phrases to related blog posts (SEO boost)
+  const linkedContent = autoLinkContent(post.content, post.slug);
+  const html = renderMarkdown(linkedContent);
   const allPosts = getAllPosts();
   const relatedPosts = allPosts.filter((p) => p.slug !== slug).slice(0, 3);
 

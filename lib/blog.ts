@@ -17,7 +17,7 @@ const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 export function getAllPosts(): BlogPost[] {
   if (!fs.existsSync(BLOG_DIR)) return [];
 
-  const files = fs.readdirSync(BLOG_DIR).filter((f) => f.endsWith(".md"));
+  const files = fs.readdirSync(BLOG_DIR).filter((f) => f.endsWith(".md") && !f.startsWith("_"));
   const posts: BlogPost[] = [];
 
   for (const file of files) {
