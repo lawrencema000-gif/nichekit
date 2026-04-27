@@ -81,6 +81,12 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
   },
   category: "education",
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+    other: {
+      "msvalidate.01": process.env.BING_SITE_VERIFICATION || "",
+    },
+  },
 };
 
 const jsonLd = [
