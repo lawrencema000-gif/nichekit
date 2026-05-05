@@ -8,7 +8,7 @@ Every piece of the autonomous brain is shipped:
 
 | System | What it does | Cron |
 |--------|--------------|------|
-| **Supervisor** | Heartbeat, orchestrator, self-healing, alerts | Every 30 min |
+| **Supervisor** | Heartbeat, orchestrator, self-healing, alerts | Daily (every 30 min on Vercel Pro $20/mo) |
 | **Daily content** | Generates 1 SEO blog post via Claude | Daily 22:00 UTC |
 | **Multi-channel publisher** | Posts new content to Twitter + LinkedIn | Triggered by supervisor |
 | **Support bot** | Auto-replies to customer emails | Triggered by inbound |

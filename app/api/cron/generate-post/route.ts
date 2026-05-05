@@ -161,6 +161,19 @@ Output ONLY the markdown file content. No preamble, no explanation, no code fenc
     headers: { Authorization: `Bearer ${cronSecret}` },
   }).catch(() => {});
 
+  // Trigger publish-social directly (rather than waiting for supervisor)
+  fetch(`${SITE_URL}/api/cron/publish-social`, {
+    headers: { Authorization: `Bearer ${cronSecret}` },
+  }).catch(() => {});
+
+  // Log the publish action
+  await logActivity({
+    agent: "generate-post",
+    action: "publish",
+    status: "success",
+    details: { slug: topic.slug, title: topic.title, wordCount: markdown.split(/\s+/).length },
+  });
+
   console.log(`[Generate Post] Published: ${topic.slug}`);
 
   return NextResponse.json({
