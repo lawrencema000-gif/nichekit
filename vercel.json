@@ -1,6 +1,10 @@
 {
   "crons": [
     {
+      "path": "/api/cron/supervisor",
+      "schedule": "*/30 * * * *"
+    },
+    {
       "path": "/api/cron/generate-post",
       "schedule": "0 22 * * *"
     },

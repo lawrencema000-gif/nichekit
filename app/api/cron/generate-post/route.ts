@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { getAllPosts } from "@/lib/blog";
 import { getNextTopic } from "@/lib/topic-queue";
+import { createAdminClient } from "@/lib/supabase-admin";
+import { logActivity } from "@/lib/agent-log";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 300; // 5 min — Anthropic generation can take a while
@@ -138,6 +140,20 @@ Output ONLY the markdown file content. No preamble, no explanation, no code fenc
       { error: `Commit failed: ${err instanceof Error ? err.message : "unknown"}` },
       { status: 500 }
     );
+  }
+
+  // Queue social media publishing (will be processed by publish-social cron)
+  try {
+    const supabase = createAdminClient();
+    const platforms = ["twitter", "linkedin"] as const;
+    for (const platform of platforms) {
+      await supabase.from("social_publishing").upsert(
+        { blog_slug: topic.slug, platform, status: "pending" },
+        { onConflict: "blog_slug,platform" }
+      );
+    }
+  } catch (err) {
+    console.warn("[Generate Post] Failed to queue social publishing:", err);
   }
 
   // Trigger SEO ping (fire and forget — Vercel will rebuild from the commit)

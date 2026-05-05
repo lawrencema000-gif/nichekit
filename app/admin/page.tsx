@@ -47,6 +47,36 @@ export default async function AdminPage() {
     .from("course_progress")
     .select("user_id, course_slug, completed");
 
+  // Fetch agent activity (last 50)
+  const { data: activity } = await supabase
+    .from("agent_activity")
+    .select("agent, action, status, error_message, duration_ms, created_at")
+    .order("created_at", { ascending: false })
+    .limit(50);
+
+  // Fetch latest supervisor heartbeat
+  const { data: lastHeartbeat } = await supabase
+    .from("agent_activity")
+    .select("status, details, created_at")
+    .eq("agent", "supervisor")
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .single();
+
+  // Fetch pending support messages
+  const { data: pendingSupport } = await supabase
+    .from("support_messages")
+    .select("from_email, subject, status, created_at")
+    .order("created_at", { ascending: false })
+    .limit(20);
+
+  // Fetch social publishing status
+  const { data: socialJobs } = await supabase
+    .from("social_publishing")
+    .select("blog_slug, platform, status, error_message, posted_at, created_at")
+    .order("created_at", { ascending: false })
+    .limit(20);
+
   // Calculate stats
   const totalUsers = users?.length || 0;
   const paidUsers = users?.filter(u => u.plan !== "free").length || 0;
@@ -107,6 +137,214 @@ export default async function AdminPage() {
               <span className="text-xs block mt-1" style={{ color: "var(--ink-muted)" }}>{stat.sub}</span>
             </div>
           ))}
+        </div>
+
+        {/* Heartbeat status */}
+        <div className="mb-10">
+          <h2 className="text-sm font-medium mb-3" style={{ color: "var(--ink-muted)" }}>Autonomous System Status</h2>
+          <div className="rounded-xl p-5" style={{ background: "var(--warm-white)", border: "1px solid var(--border)" }}>
+            {lastHeartbeat ? (
+              <>
+                <div className="flex items-center gap-2 mb-3">
+                  <span
+                    className="w-2 h-2 rounded-full"
+                    style={{ background: lastHeartbeat.status === "success" ? "var(--sage)" : "var(--terracotta)" }}
+                  />
+                  <span className="text-sm font-medium" style={{ color: "var(--ink)" }}>
+                    {lastHeartbeat.status === "success" ? "All systems operational" : "Issues detected"}
+                  </span>
+                  <span className="text-xs ml-auto" style={{ color: "var(--ink-muted)" }}>
+                    Last check: {new Date(lastHeartbeat.created_at).toLocaleString("en-AU")}
+                  </span>
+                </div>
+                {lastHeartbeat.details && typeof lastHeartbeat.details === "object" && (
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-2 text-xs">
+                    {Object.entries(lastHeartbeat.details as Record<string, { status: string; details?: string }>).map(([key, val]) => (
+                      <div key={key} className="p-2 rounded" style={{ background: "var(--cream)" }}>
+                        <span className="block font-medium" style={{ color: "var(--ink-muted)" }}>{key}</span>
+                        <span
+                          className="block"
+                          style={{
+                            color:
+                              val.status === "ok" || val.status === "idle" || val.status === "triggered"
+                                ? "var(--sage)"
+                                : "var(--terracotta)",
+                          }}
+                        >
+                          {val.status}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
+            ) : (
+              <span className="text-sm" style={{ color: "var(--ink-muted)" }}>
+                No heartbeat data yet. Supervisor cron will populate this once it runs.
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Recent agent activity */}
+        <div className="mb-10">
+          <h2 className="text-sm font-medium mb-3" style={{ color: "var(--ink-muted)" }}>Recent Agent Activity</h2>
+          <div className="rounded-xl overflow-hidden" style={{ border: "1px solid var(--border)" }}>
+            <div className="overflow-x-auto max-h-96">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr style={{ background: "var(--cream)" }}>
+                    <th className="text-left px-4 py-2 font-medium text-xs" style={{ color: "var(--ink-muted)" }}>Agent</th>
+                    <th className="text-left px-4 py-2 font-medium text-xs" style={{ color: "var(--ink-muted)" }}>Action</th>
+                    <th className="text-left px-4 py-2 font-medium text-xs" style={{ color: "var(--ink-muted)" }}>Status</th>
+                    <th className="text-left px-4 py-2 font-medium text-xs" style={{ color: "var(--ink-muted)" }}>Duration</th>
+                    <th className="text-left px-4 py-2 font-medium text-xs" style={{ color: "var(--ink-muted)" }}>When</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(activity || []).length === 0 ? (
+                    <tr style={{ background: "var(--warm-white)" }}>
+                      <td colSpan={5} className="px-4 py-6 text-center text-xs" style={{ color: "var(--ink-muted)" }}>
+                        No agent activity yet. Crons will populate this as they run.
+                      </td>
+                    </tr>
+                  ) : (
+                    (activity || []).map((a, i) => (
+                      <tr key={i} style={{ background: "var(--warm-white)", borderTop: "1px solid var(--border)" }}>
+                        <td className="px-4 py-2 text-xs font-medium" style={{ color: "var(--ink)" }}>{a.agent}</td>
+                        <td className="px-4 py-2 text-xs" style={{ color: "var(--ink-light)" }}>{a.action}</td>
+                        <td className="px-4 py-2">
+                          <span
+                            className="text-xs font-medium px-2 py-0.5 rounded-full"
+                            style={{
+                              background: a.status === "success" ? "var(--sage-light)" : a.status === "failed" ? "#fde8e8" : "var(--sand)",
+                              color: a.status === "success" ? "var(--sage)" : a.status === "failed" ? "var(--terracotta)" : "var(--ink-muted)",
+                            }}
+                          >
+                            {a.status}
+                          </span>
+                        </td>
+                        <td className="px-4 py-2 text-xs" style={{ color: "var(--ink-muted)" }}>
+                          {a.duration_ms ? `${a.duration_ms}ms` : "—"}
+                        </td>
+                        <td className="px-4 py-2 text-xs" style={{ color: "var(--ink-muted)" }}>
+                          {new Date(a.created_at).toLocaleString("en-AU", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short" })}
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        {/* Social publishing status */}
+        <div className="mb-10">
+          <h2 className="text-sm font-medium mb-3" style={{ color: "var(--ink-muted)" }}>Social Publishing Queue</h2>
+          <div className="rounded-xl overflow-hidden" style={{ border: "1px solid var(--border)" }}>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr style={{ background: "var(--cream)" }}>
+                    <th className="text-left px-4 py-2 font-medium text-xs" style={{ color: "var(--ink-muted)" }}>Post</th>
+                    <th className="text-left px-4 py-2 font-medium text-xs" style={{ color: "var(--ink-muted)" }}>Platform</th>
+                    <th className="text-left px-4 py-2 font-medium text-xs" style={{ color: "var(--ink-muted)" }}>Status</th>
+                    <th className="text-left px-4 py-2 font-medium text-xs" style={{ color: "var(--ink-muted)" }}>Posted/Created</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(socialJobs || []).length === 0 ? (
+                    <tr style={{ background: "var(--warm-white)" }}>
+                      <td colSpan={4} className="px-4 py-6 text-center text-xs" style={{ color: "var(--ink-muted)" }}>
+                        No social posts queued yet.
+                      </td>
+                    </tr>
+                  ) : (
+                    (socialJobs || []).map((s, i) => (
+                      <tr key={i} style={{ background: "var(--warm-white)", borderTop: "1px solid var(--border)" }}>
+                        <td className="px-4 py-2 text-xs" style={{ color: "var(--ink)" }}>{s.blog_slug}</td>
+                        <td className="px-4 py-2 text-xs" style={{ color: "var(--ink-light)" }}>{s.platform}</td>
+                        <td className="px-4 py-2">
+                          <span
+                            className="text-xs font-medium px-2 py-0.5 rounded-full"
+                            style={{
+                              background: s.status === "posted" ? "var(--sage-light)" : s.status === "failed" ? "#fde8e8" : "var(--sand)",
+                              color: s.status === "posted" ? "var(--sage)" : s.status === "failed" ? "var(--terracotta)" : "var(--ink-muted)",
+                            }}
+                          >
+                            {s.status}
+                          </span>
+                        </td>
+                        <td className="px-4 py-2 text-xs" style={{ color: "var(--ink-muted)" }}>
+                          {new Date(s.posted_at || s.created_at).toLocaleString("en-AU", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        {/* Support messages */}
+        <div className="mb-10">
+          <h2 className="text-sm font-medium mb-3" style={{ color: "var(--ink-muted)" }}>Support Messages</h2>
+          <div className="rounded-xl overflow-hidden" style={{ border: "1px solid var(--border)" }}>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr style={{ background: "var(--cream)" }}>
+                    <th className="text-left px-4 py-2 font-medium text-xs" style={{ color: "var(--ink-muted)" }}>From</th>
+                    <th className="text-left px-4 py-2 font-medium text-xs" style={{ color: "var(--ink-muted)" }}>Subject</th>
+                    <th className="text-left px-4 py-2 font-medium text-xs" style={{ color: "var(--ink-muted)" }}>Status</th>
+                    <th className="text-left px-4 py-2 font-medium text-xs" style={{ color: "var(--ink-muted)" }}>Received</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(pendingSupport || []).length === 0 ? (
+                    <tr style={{ background: "var(--warm-white)" }}>
+                      <td colSpan={4} className="px-4 py-6 text-center text-xs" style={{ color: "var(--ink-muted)" }}>
+                        No support messages yet. Configure inbound email to populate.
+                      </td>
+                    </tr>
+                  ) : (
+                    (pendingSupport || []).map((m, i) => (
+                      <tr key={i} style={{ background: "var(--warm-white)", borderTop: "1px solid var(--border)" }}>
+                        <td className="px-4 py-2 text-xs" style={{ color: "var(--ink)" }}>{m.from_email}</td>
+                        <td className="px-4 py-2 text-xs" style={{ color: "var(--ink-light)" }}>{m.subject || "(none)"}</td>
+                        <td className="px-4 py-2">
+                          <span
+                            className="text-xs font-medium px-2 py-0.5 rounded-full"
+                            style={{
+                              background:
+                                m.status === "replied"
+                                  ? "var(--sage-light)"
+                                  : m.status === "escalated"
+                                  ? "#fde8e8"
+                                  : "var(--sand)",
+                              color:
+                                m.status === "replied"
+                                  ? "var(--sage)"
+                                  : m.status === "escalated"
+                                  ? "var(--terracotta)"
+                                  : "var(--ink-muted)",
+                            }}
+                          >
+                            {m.status}
+                          </span>
+                        </td>
+                        <td className="px-4 py-2 text-xs" style={{ color: "var(--ink-muted)" }}>
+                          {new Date(m.created_at).toLocaleString("en-AU", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
 
         {/* Plan breakdown */}
